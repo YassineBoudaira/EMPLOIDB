@@ -1,49 +1,28 @@
 <?php
-// Enhanced session management with security
+// Start session if not already started
 if (session_status() === PHP_SESSION_NONE) {
-    // Set secure session parameters
-    ini_set('session.cookie_httponly', 1);
-    ini_set('session.cookie_secure', isset($_SERVER['HTTPS']));
-    ini_set('session.use_strict_mode', 1);
-    ini_set('session.cookie_samesite', 'Strict');
-    ini_set('session.gc_maxlifetime', 3600); // 1 hour
-    
-    // Start session
     session_start();
-    
-    // Regenerate session ID periodically for security
-    if (!isset($_SESSION['last_regeneration'])) {
-        $_SESSION['last_regeneration'] = time();
-    } elseif (time() - $_SESSION['last_regeneration'] > 300) { // 5 minutes
-        session_regenerate_id(true);
-        $_SESSION['last_regeneration'] = time();
-    }
 }
 
-// Function to check if user is logged in
-function isLoggedIn() {
-    return isset($_SESSION['user_id']) && !empty($_SESSION['user_id']);
+// Set session timeout
+if (isset($_SESSION['login_time']) && (time() - $_SESSION['login_time']) > SESSION_TIMEOUT) {
+    session_unset();
+    session_destroy();
+    header('Location: login.php');
+    exit();
 }
 
-// Function to check if user is admin
-function isAdmin() {
-    return isLoggedIn() && isset($_SESSION['role']) && $_SESSION['role'] === 'admin';
+// Regenerate session ID periodically for security
+if (!isset($_SESSION['last_regeneration']) || (time() - $_SESSION['last_regeneration']) > 300) {
+    session_regenerate_id(true);
+    $_SESSION['last_regeneration'] = time();
 }
 
-// Function to require authentication
-function requireAuth() {
-    if (!isLoggedIn()) {
-        header('Location: /login.php');
-        exit();
-    }
+// Update login time on each request
+if (isset($_SESSION['login_time'])) {
+    $_SESSION['login_time'] = time();
 }
 
-// Function to require admin privileges
-function requireAdmin() {
-    requireAuth();
-    if (!isAdmin()) {
-        header('Location: /home.php');
-        exit();
-    }
-}
+// Helper functions - these are now in Security.php, so we'll use those instead
+// Remove duplicate function declarations to avoid conflicts
 ?>

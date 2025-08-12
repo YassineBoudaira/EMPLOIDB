@@ -1,5 +1,11 @@
 
-<?php include 'frontoffice/include/header2.php'; ?>
+<?php 
+// Include configuration first (before any session starts)
+include 'include/config.php';
+include 'include/sess.php';
+include 'include/connexion.php';
+include 'frontoffice/include/header2.php'; 
+?>
 
     <div class="container-fluid bg-white p-0">
         <!-- Spinner Start -->

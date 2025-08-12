@@ -1,8 +1,9 @@
 <?php
-/**
- * Secure Configuration File
- * Environment-based configuration settings
- */
+// Session configuration - MUST be at the top before any session starts
+ini_set('session.cookie_httponly', 1);
+ini_set('session.cookie_secure', isset($_SERVER['HTTPS']));
+ini_set('session.use_strict_mode', 1);
+ini_set('session.cookie_samesite', 'Strict');
 
 // Error reporting (disable in production)
 if (isset($_SERVER['SERVER_NAME']) && ($_SERVER['SERVER_NAME'] === 'localhost' || $_SERVER['SERVER_NAME'] === '127.0.0.1')) {
@@ -18,12 +19,6 @@ header('X-Content-Type-Options: nosniff');
 header('X-Frame-Options: DENY');
 header('X-XSS-Protection: 1; mode=block');
 header('Referrer-Policy: strict-origin-when-cross-origin');
-
-// Session security
-ini_set('session.cookie_httponly', 1);
-ini_set('session.cookie_secure', isset($_SERVER['HTTPS']));
-ini_set('session.use_strict_mode', 1);
-ini_set('session.cookie_samesite', 'Strict');
 
 // Database configuration
 define('DB_HOST', 'localhost');
