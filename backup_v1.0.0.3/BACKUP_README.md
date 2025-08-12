@@ -1,7 +1,7 @@
-# Backup and Restore System - Versions 1.0.0.1, 1.0.0.2 & 1.0.0.3
+# Backup and Restore System - Versions 1.0.0.1 & 1.0.0.2
 
 ## Overview
-This backup system allows you to restore your project to version 1.0.0.1, 1.0.0.2, or 1.0.0.3 at any time.
+This backup system allows you to restore your project to either version 1.0.0.1 or version 1.0.0.2 at any time.
 
 ## Files Created
 
@@ -14,11 +14,6 @@ This backup system allows you to restore your project to version 1.0.0.1, 1.0.0.
 - `backup_v1.0.0.2/` - Complete backup of version 1.0.0.2
 - `restore_v1.0.0.2.ps1` - PowerShell script to restore version 1.0.0.2
 - `restore_v1.0.0.2.bat` - Batch file to restore version 1.0.0.2
-
-### Version 1.0.0.3 (Current Version)
-- `backup_v1.0.0.3/` - Complete backup of version 1.0.0.3
-- `restore_v1.0.0.3.ps1` - PowerShell script to restore version 1.0.0.3
-- `restore_v1.0.0.3.bat` - Batch file to restore version 1.0.0.3
 
 ## How to Restore
 
@@ -49,20 +44,6 @@ This backup system allows you to restore your project to version 1.0.0.1, 1.0.0.
 #### Option 3: Manual Restore
 1. Delete all current files (except backup folders and .git)
 2. Copy all files from `backup_v1.0.0.2/` to the root directory
-
-### Restore to Version 1.0.0.3
-
-#### Option 1: Using PowerShell Script
-1. Open PowerShell in your project directory
-2. Run: `.\restore_v1.0.0.3.ps1`
-
-#### Option 2: Using Batch File
-1. Double-click `restore_v1.0.0.3.bat`
-2. Or run it from Command Prompt
-
-#### Option 3: Manual Restore
-1. Delete all current files (except backup folders and .git)
-2. Copy all files from `backup_v1.0.0.3/` to the root directory
 
 ## What Happens During Restore
 1. A backup of your current state is created with timestamp
@@ -95,15 +76,9 @@ This backup system allows you to restore your project to version 1.0.0.1, 1.0.0.
 - **Backup Location**: `backup_v1.0.0.2/`
 - **Description**: Enhanced security features, fixed login system, improved user experience
 
-### Version 1.0.0.3
-- **Backup Version**: 1.0.0.3
-- **Backup Date**: Created after session fixes and feature analysis
-- **Backup Location**: `backup_v1.0.0.3/`
-- **Description**: Fixed session configuration errors, resolved function redeclaration issues, comprehensive feature analysis completed
-
 ## Troubleshooting
 If you encounter issues:
-1. Check that the backup folder exists (`backup_v1.0.0.1/`, `backup_v1.0.0.2/`, or `backup_v1.0.0.3/`)
+1. Check that the backup folder exists (`backup_v1.0.0.1/` or `backup_v1.0.0.2/`)
 2. Ensure you have write permissions
 3. Make sure no files are locked/in use
 4. Try running as administrator if needed
