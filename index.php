@@ -57,74 +57,42 @@
         <!-- Search Start -->
         <div class="container-fluid bg-primary mb-5 wow fadeIn" data-wow-delay="0.1s" style="padding: 35px;">
             <div class="container">
-            <form action="filtrage.php"   >
+            <form action="filtrage.php" method="GET">
                 <div class="row g-2">
                     <div class="col-md-10">
                         <div class="row g-2">
                             <div class="col-md-4">
-                                <input type="text" class="form-control border-0" placeholder="Mot Clé" />
-                                <!-- <label for="cars" >Mot Clé:</label>
-                                    <select name="cars" id="cars">
-                                    <option value="volvo"  selected >voiture</option>
-                                    <option value="volvo">Volvo</option>
-                                    <option value="saab">Saab</option>
-                                    <option value="mercedes">Mercedes</option>
-                                    <option value="audi">Audi</option>
-                                    </select> -->
+                                <input type="text" name="keyword" class="form-control border-0" placeholder="Mot Clé" />
                             </div>
-                            <form action="filtrage.php"   >
-
-                                <?php 
-                                // $id= $_GET['id'];
-                                // $req = $bd->query("SELECT * from annonces where id=:id");
-                                // $data = $req->fetch();
-                                ?>
-                                    <div class="col-md-4">
-                                        <select name="idd"  class="form-select border-0">
-
-                                            <option selected > Metiers et Domaines </option>
-                                                                            <?php 
-                                // Use secure database queries with prepared statements
-                                $domaines = $db->fetchAll("SELECT * FROM domaines");
-                                foreach($domaines as $datad):
-                                    ?>
+                            <div class="col-md-4">
+                                <select name="idd" class="form-select border-0">
+                                    <option value="">Metiers et Domaines</option>
+                                    <?php 
+                                    // Use secure database queries with prepared statements
+                                    $domaines = $db->fetchAll("SELECT * FROM domaines");
+                                    foreach($domaines as $datad):
+                                        ?>
                                     <option value="<?= htmlspecialchars($datad['id']) ?>"><?= htmlspecialchars($datad['nom']) ?></option>
                                     <?php endforeach;?>
-                                        </select>
-                                    </div>
-
-
-                                    <div class="col-md-4">
-                                        <select name="idv" class="form-select border-0">
-
-
-                                        
-                                            <option selected > villes </option>
-                                            <?php 
-                                            // Use secure database queries with prepared statements
-                                            $villes = $db->fetchAll("SELECT * FROM villes");
-                                            foreach($villes as $datav):
-                                            ?>
-                                            <option value="<?= htmlspecialchars($datav['id']) ?>"><?= htmlspecialchars($datav['nom']) ?></option>
-                                            <?php endforeach;?>
-                                        
-
-                                            <!-- <option selected>Location</option>
-                                            <option value="1">Location 1</option>
-                                            <option value="2">Location 2</option>
-                                            <option value="3">Location 3</option> -->
-                                        </select>
-                                    </div>
-
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <select name="idv" class="form-select border-0">
+                                    <option value="">villes</option>
+                                    <?php 
+                                    // Use secure database queries with prepared statements
+                                    $villes = $db->fetchAll("SELECT * FROM villes");
+                                    foreach($villes as $datav):
+                                    ?>
+                                    <option value="<?= htmlspecialchars($datav['id']) ?>"><?= htmlspecialchars($datav['nom']) ?></option>
+                                    <?php endforeach;?>
+                                </select>
+                            </div>
                         </div>
                     </div>
-                    <!-- <div class="col-md-2">
-                       <button  class="btn-search border-0 w-100" > Search</button>
-                    </div> -->
                     <div class="col-md-2">
-                        <button class="btn btn-dark border-0 w-100">Recherche</button>
+                        <button type="submit" class="btn btn-dark border-0 w-100">Recherche</button>
                     </div>
-                    </form>
                 </div>
            </form>
             </div>

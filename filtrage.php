@@ -1,20 +1,57 @@
+<?php 
+include 'include/sess.php';
+include 'include/connexion.php';
+include 'frontoffice/include/header2.php'; 
+?>
 
-
-<?php include 'frontoffice/include/header2.php'; ?>
 <body>
 
 <?php   
 // Secure input validation
+$keyword = Security::sanitizeInput($_GET['keyword'] ?? '', 'string');
 $domaine_id = Security::sanitizeInput($_GET['idd'] ?? '', 'int');
 $ville_id = Security::sanitizeInput($_GET['idv'] ?? '', 'int');
 
-// Validate that both parameters are provided and are integers
-if (!$domaine_id || !$ville_id || !Security::validateInt($domaine_id) || !Security::validateInt($ville_id)) {
-    Security::redirect('index.php', 'Invalid search parameters', 'error');
+// Build search conditions
+$conditions = [];
+$params = [];
+$search_title = "Résultats de recherche";
+
+if (!empty($keyword)) {
+    $conditions[] = "(titre LIKE ? OR description LIKE ? OR entreprise LIKE ?)";
+    $keyword_param = "%$keyword%";
+    $params[] = $keyword_param;
+    $params[] = $keyword_param;
+    $params[] = $keyword_param;
+    $search_title .= " pour '$keyword'";
 }
 
+if (!empty($domaine_id) && Security::validateInt($domaine_id)) {
+    $conditions[] = "domaine_id = ?";
+    $params[] = $domaine_id;
+    $domaine_data = $db->fetch("SELECT nom FROM domaines WHERE id = ?", [$domaine_id]);
+    if ($domaine_data) {
+        $search_title .= " dans le domaine '" . $domaine_data['nom'] . "'";
+    }
+}
+
+if (!empty($ville_id) && Security::validateInt($ville_id)) {
+    $conditions[] = "ville_id = ?";
+    $params[] = $ville_id;
+    $ville_data = $db->fetch("SELECT nom FROM villes WHERE id = ?", [$ville_id]);
+    if ($ville_data) {
+        $search_title .= " à '" . $ville_data['nom'] . "'";
+    }
+}
+
+// If no search criteria provided, redirect to index
+if (empty($conditions)) {
+    Security::redirect('index.php', 'Veuillez spécifier au moins un critère de recherche', 'info');
+}
+
+// Build the SQL query
+$sql = "SELECT * FROM annonces WHERE " . implode(' AND ', $conditions) . " ORDER BY id DESC";
 ?>
-<body>
 
     <div class="container-fluid bg-white p-0">
         <!-- Spinner Start -->
@@ -34,12 +71,11 @@ if (!$domaine_id || !$ville_id || !Security::validateInt($domaine_id) || !Securi
         <!-- Header End -->
         <div class="container-fluid py-5 bg-dark page-header mb-5">
             <div class="container my-5 pt-5 pb-4">
-                <h1 class="display-3 text-white mb-3 animated slideInDown">Categories</h1>
+                <h1 class="display-3 text-white mb-3 animated slideInDown">Recherche d'emploi</h1>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb text-uppercase">
-                        <li class="breadcrumb-item"><a href="#">Accueil</a></li>
-                        <li class="breadcrumb-item"><a href="#">Domaines</a></li>
-                        <li class="breadcrumb-item text-white active" aria-current="page">Categories</li>
+                        <li class="breadcrumb-item"><a href="index.php">Accueil</a></li>
+                        <li class="breadcrumb-item text-white active" aria-current="page">Recherche</li>
                     </ol>
                 </nav>
             </div>
@@ -47,177 +83,112 @@ if (!$domaine_id || !$ville_id || !Security::validateInt($domaine_id) || !Securi
         <!-- Header End -->
 
 
-        <!-- Start saerch -->
-
+        <!-- Start search form -->
         <div class="container-fluid bg-primary mb-5 wow fadeIn" data-wow-delay="0.1s" style="padding: 35px;">
             <div class="container">
-                <form action="filtrage.php">
+                <form action="filtrage.php" method="GET">
                     <div class="row g-2">
                         <div class="col-md-10">
                             <div class="row g-2">
                                 <div class="col-md-4">
-                                    <input type="text" class="form-control border-0" placeholder="Mot Clé" />
-                                    <!-- <label for="cars" >Mot Clé:</label>
-                                        <select name="cars" id="cars">
-                                        <option value="volvo"  selected >voiture</option>
-                                        <option value="volvo">Volvo</option>
-                                        <option value="saab">Saab</option>
-                                        <option value="mercedes">Mercedes</option>
-                                        <option value="audi">Audi</option>
-                                        </select> -->
+                                    <input type="text" name="keyword" value="<?= htmlspecialchars($keyword) ?>" class="form-control border-0" placeholder="Mot Clé" />
                                 </div>
-                                <form action="filtrage.php"   >
-
-                                    <?php 
-                                    // $id= $_GET['id'];
-                                    // $req = $bd->query("SELECT * from annonces where id=:id");
-                                    // $data = $req->fetch();
-                                    ?>
-                                        <div class="col-md-4">
-                                            <select name="idd"  class="form-select border-0">
-
-
-
-                                            
-                                                <option selected > Metiers et Domaines </option>
-                                                <?php 
-                                            
-                                            $reqd =  $bd->query("SELECT * from domaines");
-                                                while($datad = $reqd->fetch()):
-                                                    ?>
-                                                <option  value="<?=  $vard= $datad['id'] ?>" ><?= $datad['nom'] ?></option>
-                                                <!-- <option value="2">Category 2</option>
-                                                <option value="3">Category 3</option> -->
-                                                <?php endwhile;?>
-                                            </select>
-                                        </div>
-
-
-                                        <div class="col-md-4">
-                                            <select name="idv" class="form-select border-0">
-
-
-                                            
-                                                <option selected > villes </option>
-                                                <?php 
-                                                
-                                                $reqv =  $bd->query("SELECT * from villes");
-                                                while($datav = $reqv->fetch()):
-                                                ?>
-                                                <option value="<?= $varv= $datav['id'] ?>" ><?= $datav['nom'] ?></option>
-                                                <!-- <option value="2">Category 2</option>
-                                                <option value="3">Category 3</option> -->
-                                                <?php endwhile;?>
-                                            
-
-                                                <!-- <option selected>Location</option>
-                                                <option value="1">Location 1</option>
-                                                <option value="2">Location 2</option>
-                                                <option value="3">Location 3</option> -->
-                                            </select>
-                                        </div>
-
+                                <div class="col-md-4">
+                                    <select name="idd" class="form-select border-0">
+                                        <option value="">Metiers et Domaines</option>
+                                        <?php 
+                                        $domaines = $db->fetchAll("SELECT * FROM domaines");
+                                        foreach($domaines as $datad):
+                                            $selected = ($datad['id'] == $domaine_id) ? 'selected' : '';
+                                        ?>
+                                        <option value="<?= htmlspecialchars($datad['id']) ?>" <?= $selected ?>><?= htmlspecialchars($datad['nom']) ?></option>
+                                        <?php endforeach;?>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <select name="idv" class="form-select border-0">
+                                        <option value="">villes</option>
+                                        <?php 
+                                        $villes = $db->fetchAll("SELECT * FROM villes");
+                                        foreach($villes as $datav):
+                                            $selected = ($datav['id'] == $ville_id) ? 'selected' : '';
+                                        ?>
+                                        <option value="<?= htmlspecialchars($datav['id']) ?>" <?= $selected ?>><?= htmlspecialchars($datav['nom']) ?></option>
+                                        <?php endforeach;?>
+                                    </select>
+                                </div>
                             </div>
                         </div>
-                        <!-- <div class="col-md-2">
-                        <button  class="btn-search w-100" > Search</button>
-                        </div> -->
-
                         <div class="col-md-2">
-                            <button class="btn btn-dark border-0 w-100">Rechercher</button>
+                            <button type="submit" class="btn btn-dark border-0 w-100">Rechercher</button>
                         </div>
-                        </form>
                     </div>
                 </form>
             </div>
         </div>
-        
-        <!-- Start saerch -->
-
-        
-        
+        <!-- End search form -->
         
         <!-- Jobs Start -->
-
-
         <div class="container-xxl py-5">
             <div class="container">
-                <?php 
-                    // Use secure database queries with prepared statements
-                    $datad = $db->fetch("SELECT * FROM domaines WHERE id = ?", [$domaine_id]);
-                    $datav = $db->fetch("SELECT * FROM villes WHERE id = ?", [$ville_id]);
-                    
-                    // Check if data exists
-                    if (!$datad || !$datav) {
-                        Security::redirect('index.php', 'Invalid domain or city', 'error');
-                    }
-                    ?>
-                    
-                    
-                    
-                <h1 class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">List des Offres De [<?= $datad['nom'] ?>] dans la ville - <?= $datav['nom'] ?>  </h1>
+                <h1 class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s"><?= htmlspecialchars($search_title) ?></h1>
             
                 <div class="tab-class text-center wow fadeInUp" data-wow-delay="0.3s">
-                    
                     <div class="tab-content">
                         <div id="tab-1" class="tab-pane fade show p-0 active">
                             <!-- Start Annonce -->
-
-
                             <?php
-                           
-
-                            // Use secure database queries with prepared statements
-                            $annonces = $db->fetchAll("SELECT * FROM annonces WHERE domaine_id = ? AND ville_id = ? ORDER BY id DESC", [$domaine_id, $ville_id]);
+                            // Execute the search query
+                            $annonces = $db->fetchAll($sql, $params);
                             
-                            foreach($annonces as $data):
-                                $profile = $data['profile_id'];
-                                $data1 = $db->fetch("SELECT * FROM profiles WHERE id = ?", [$profile]);
-    
-                                $contrat = $data['contrat_id'];
-                                $data2 = $db->fetch("SELECT * FROM contrats WHERE id = ?", [$contrat]);
-    
-                                $ville = $data['ville_id'];
-                                $data3 = $db->fetch("SELECT * FROM villes WHERE id = ?", [$ville]);
-    
-                                $domaine = $data['domaine_id'];
-                                $data4 = $db->fetch("SELECT * FROM domaines WHERE id = ?", [$domaine]);
-                                ?>
+                            if (empty($annonces)) {
+                                echo '<div class="text-center py-5">';
+                                echo '<h3 class="text-muted">Aucun résultat trouvé</h3>';
+                                echo '<p class="text-muted">Essayez de modifier vos critères de recherche</p>';
+                                echo '<a href="index.php" class="btn btn-primary">Retour à l\'accueil</a>';
+                                echo '</div>';
+                            } else {
+                                echo '<p class="text-center mb-4"><strong>' . count($annonces) . '</strong> offre(s) trouvée(s)</p>';
+                                
+                                foreach($annonces as $data):
+                                    $profile = $data['profile_id'];
+                                    $data1 = $db->fetch("SELECT * FROM profiles WHERE id = ?", [$profile]);
+
+                                    $contrat = $data['contrat_id'];
+                                    $data2 = $db->fetch("SELECT * FROM contrats WHERE id = ?", [$contrat]);
+
+                                    $ville = $data['ville_id'];
+                                    $data3 = $db->fetch("SELECT * FROM villes WHERE id = ?", [$ville]);
+
+                                    $domaine = $data['domaine_id'];
+                                    $data4 = $db->fetch("SELECT * FROM domaines WHERE id = ?", [$domaine]);
+                            ?>
                             <div class="job-item p-4 mb-4">
                                 <div class="row g-4">
                                     <div class="col-sm-12 col-md-8 d-flex align-items-center">
-                                        <img class="flex-shrink-0 img-fluid border rounded" src="upload/<?= $data['image'] ?>" alt="" style="width: 280px; height: 180px;">
+                                        <img class="flex-shrink-0 me-3" src="img/com-logo-1.jpg" alt="">
                                         <div class="text-start ps-4">
-
-                                       
-                                            <h5 class="mb-3"><i class="fa fa-1x fa-user-tie text-primary mb-4 me-2"></i><?= $data['titre'] ?>  </h5>
-                                           <P  > <?= substr($data['description'],0,300)?></P> 
-                                           <!-- style="max-width:800px; position: relative;" -->
-
-                                            <span class="text-truncate me-3"><i class="fa fa-map-marker-alt text-primary me-2"></i> Location: <?=  $data3['nom'] ?></span>
-                                            
-                                            <span class="text-truncate me-3"><i class="far fa-clock text-primary me-2"></i> Contrat: <?= $data2['nom'] ?> </span>
-                                            <span class="text-truncate me-3"><i class="far fa-money-bill-alt text-primary me-2"></i> Salaire: $123 - $456</span>
-                                            <span class="text-truncate me-3"><i class="fa fa-1x fa-user-tie text-primary  me-2"></i> Domaine: <?= $data4['nom'] ?>  </span>
+                                            <h5 class="mb-3"><?= htmlspecialchars($data['titre']) ?></h5>
+                                            <span class="text-truncate me-3"><i class="fa fa-map-marker-alt text-primary me-2"></i><?= htmlspecialchars($data3['nom']) ?></span>
+                                            <span class="text-truncate me-3"><i class="far fa-clock text-primary me-2"></i><?= htmlspecialchars($data1['nom']) ?></span>
+                                            <span class="text-truncate me-0"><i class="far fa-money-bill-alt text-primary me-2"></i><?= htmlspecialchars($data2['nom']) ?></span>
                                         </div>
                                     </div>
                                     <div class="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center">
                                         <div class="d-flex mb-3">
                                             <a class="btn btn-light btn-square me-3" href=""><i class="far fa-heart text-primary"></i></a>
-                                            <a class="btn btn-primary" href="annoncedetaile.php?ida=<?= $data['id'] ?>">Afficher les detailes</a>
+                                            <a class="btn btn-primary" href="annoncedetaile.php?ida=<?= $data['id'] ?>">Afficher les détails</a>
                                         </div>
-                                        <small class="text-truncate"><i class="far fa-calendar-alt text-primary me-2"></i> Date Line: <?= $data['date_a'] ?></small>
-                                        <small class="text-truncate"><i class="far fa-calendar-alt text-primary me-2"></i> Date Fin: <?= $data['date_a'] ?></small>
+                                        <small class="text-truncate"><i class="far fa-calendar-alt text-primary me-2"></i> Date: <?= htmlspecialchars($data['date_a']) ?></small>
                                     </div>
                                 </div>
                             </div>
-                                <?php
-                                     endforeach;
-                                ?>
-
-
+                            <?php
+                                endforeach;
+                            }
+                            ?>
                             <!-- End Annonce -->
-                            <a class="btn btn-primary py-3 px-5" href="/search.php">Browse More Jobs</a>
+                            <a class="btn btn-primary py-3 px-5" href="index.php">Voir plus d'offres</a>
                         </div>
                     </div>
                 </div>
