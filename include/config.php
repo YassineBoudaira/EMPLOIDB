@@ -5,7 +5,7 @@
  */
 
 // Error reporting (disable in production)
-if ($_SERVER['SERVER_NAME'] === 'localhost' || $_SERVER['SERVER_NAME'] === '127.0.0.1') {
+if (isset($_SERVER['SERVER_NAME']) && ($_SERVER['SERVER_NAME'] === 'localhost' || $_SERVER['SERVER_NAME'] === '127.0.0.1')) {
     error_reporting(E_ALL);
     ini_set('display_errors', 1);
 } else {
@@ -33,7 +33,7 @@ define('DB_PASS', '');
 
 // Application settings
 define('SITE_NAME', 'JobMaroc');
-define('SITE_URL', 'http://localhost');
+define('SITE_URL', 'http://localhost/emploiDB');
 define('UPLOAD_PATH', 'upload/');
 define('FILES_PATH', 'fichiers/');
 define('MAX_FILE_SIZE', 10485760); // 10MB

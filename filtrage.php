@@ -7,10 +7,10 @@ include 'frontoffice/include/header2.php';
 <body>
 
 <?php   
-// Secure input validation
-$keyword = Security::sanitizeInput($_GET['keyword'] ?? '', 'string');
-$domaine_id = Security::sanitizeInput($_GET['idd'] ?? '', 'int');
-$ville_id = Security::sanitizeInput($_GET['idv'] ?? '', 'int');
+// Simple input validation
+$keyword = trim($_GET['keyword'] ?? '');
+$domaine_id = intval($_GET['idd'] ?? 0);
+$ville_id = intval($_GET['idv'] ?? 0);
 
 // Build search conditions
 $conditions = [];
@@ -26,7 +26,7 @@ if (!empty($keyword)) {
     $search_title .= " pour '$keyword'";
 }
 
-if (!empty($domaine_id) && Security::validateInt($domaine_id)) {
+if ($domaine_id > 0) {
     $conditions[] = "domaine_id = ?";
     $params[] = $domaine_id;
     $domaine_data = $db->fetch("SELECT nom FROM domaines WHERE id = ?", [$domaine_id]);
@@ -35,7 +35,7 @@ if (!empty($domaine_id) && Security::validateInt($domaine_id)) {
     }
 }
 
-if (!empty($ville_id) && Security::validateInt($ville_id)) {
+if ($ville_id > 0) {
     $conditions[] = "ville_id = ?";
     $params[] = $ville_id;
     $ville_data = $db->fetch("SELECT nom FROM villes WHERE id = ?", [$ville_id]);
@@ -44,13 +44,14 @@ if (!empty($ville_id) && Security::validateInt($ville_id)) {
     }
 }
 
-// If no search criteria provided, redirect to index
+// If no search criteria provided, show all results
 if (empty($conditions)) {
-    Security::redirect('index.php', 'Veuillez spécifier au moins un critère de recherche', 'info');
+    $sql = "SELECT * FROM annonces ORDER BY id DESC";
+    $search_title = "Toutes les offres d'emploi";
+} else {
+    // Build the SQL query
+    $sql = "SELECT * FROM annonces WHERE " . implode(' AND ', $conditions) . " ORDER BY id DESC";
 }
-
-// Build the SQL query
-$sql = "SELECT * FROM annonces WHERE " . implode(' AND ', $conditions) . " ORDER BY id DESC";
 ?>
 
     <div class="container-fluid bg-white p-0">
@@ -138,30 +139,31 @@ $sql = "SELECT * FROM annonces WHERE " . implode(' AND ', $conditions) . " ORDER
                         <div id="tab-1" class="tab-pane fade show p-0 active">
                             <!-- Start Annonce -->
                             <?php
-                            // Execute the search query
-                            $annonces = $db->fetchAll($sql, $params);
-                            
-                            if (empty($annonces)) {
-                                echo '<div class="text-center py-5">';
-                                echo '<h3 class="text-muted">Aucun résultat trouvé</h3>';
-                                echo '<p class="text-muted">Essayez de modifier vos critères de recherche</p>';
-                                echo '<a href="index.php" class="btn btn-primary">Retour à l\'accueil</a>';
-                                echo '</div>';
-                            } else {
-                                echo '<p class="text-center mb-4"><strong>' . count($annonces) . '</strong> offre(s) trouvée(s)</p>';
+                            try {
+                                // Execute the search query
+                                $annonces = $db->fetchAll($sql, $params);
                                 
-                                foreach($annonces as $data):
-                                    $profile = $data['profile_id'];
-                                    $data1 = $db->fetch("SELECT * FROM profiles WHERE id = ?", [$profile]);
+                                if (empty($annonces)) {
+                                    echo '<div class="text-center py-5">';
+                                    echo '<h3 class="text-muted">Aucun résultat trouvé</h3>';
+                                    echo '<p class="text-muted">Essayez de modifier vos critères de recherche</p>';
+                                    echo '<a href="index.php" class="btn btn-primary">Retour à l\'accueil</a>';
+                                    echo '</div>';
+                                } else {
+                                    echo '<p class="text-center mb-4"><strong>' . count($annonces) . '</strong> offre(s) trouvée(s)</p>';
+                                    
+                                    foreach($annonces as $data):
+                                        $profile = $data['profile_id'];
+                                        $data1 = $db->fetch("SELECT * FROM profiles WHERE id = ?", [$profile]);
 
-                                    $contrat = $data['contrat_id'];
-                                    $data2 = $db->fetch("SELECT * FROM contrats WHERE id = ?", [$contrat]);
+                                        $contrat = $data['contrat_id'];
+                                        $data2 = $db->fetch("SELECT * FROM contrats WHERE id = ?", [$contrat]);
 
-                                    $ville = $data['ville_id'];
-                                    $data3 = $db->fetch("SELECT * FROM villes WHERE id = ?", [$ville]);
+                                        $ville = $data['ville_id'];
+                                        $data3 = $db->fetch("SELECT * FROM villes WHERE id = ?", [$ville]);
 
-                                    $domaine = $data['domaine_id'];
-                                    $data4 = $db->fetch("SELECT * FROM domaines WHERE id = ?", [$domaine]);
+                                        $domaine = $data['domaine_id'];
+                                        $data4 = $db->fetch("SELECT * FROM domaines WHERE id = ?", [$domaine]);
                             ?>
                             <div class="job-item p-4 mb-4">
                                 <div class="row g-4">
@@ -184,7 +186,14 @@ $sql = "SELECT * FROM annonces WHERE " . implode(' AND ', $conditions) . " ORDER
                                 </div>
                             </div>
                             <?php
-                                endforeach;
+                                    endforeach;
+                                }
+                            } catch (Exception $e) {
+                                echo '<div class="text-center py-5">';
+                                echo '<h3 class="text-danger">Erreur lors de la recherche</h3>';
+                                echo '<p class="text-muted">Une erreur s\'est produite. Veuillez réessayer.</p>';
+                                echo '<a href="index.php" class="btn btn-primary">Retour à l\'accueil</a>';
+                                echo '</div>';
                             }
                             ?>
                             <!-- End Annonce -->
