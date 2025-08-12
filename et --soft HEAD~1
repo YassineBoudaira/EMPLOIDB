@@ -1,0 +1,8 @@
+[33m4191351[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m)[m feat(docs): add comprehensive README.md and GitHub setup files
+-files --others --exclude-standard
+.gitignore
+LICENSE
+README.md
+fichiers/.gitkeep
+include/config.example.php
+upload/.gitkeep
