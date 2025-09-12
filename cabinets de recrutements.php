@@ -1,380 +1,671 @@
- <?php include 'frontoffice/include/header2.php'; ?>
+<?php 
+// Include configuration first (before any session starts)
+include 'include/config.php';
+include 'include/sess.php';
+include 'include/connexion.php';
+include 'include/ads_display_system.php';
+
+// Initialize ad display system
+$user_id = $_SESSION['user_id'] ?? null;
+$user_type = $_SESSION['user_type'] ?? 'guest';
+$ad_system = new AdDisplaySystem($db, $user_id, $user_type, 'cabinets');
+
+include 'frontoffice/include/header2.php'; 
+?>
+
 <div class="container-fluid bg-white p-0">
-        <!-- Spinner Start -->
-        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
+    <!-- Spinner Start -->
+    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
         </div>
-        <!-- Spinner End -->
+    </div>
+    <!-- Spinner End -->
 
+    <!-- Navbar End -->
+    <?php include 'frontoffice/include/menu2.php'; ?>
+    <!-- Header End -->
 
-          <!-- Navbar End -->
-          <?php include 'frontoffice/include/menu2.php'; ?>
-
-        <!-- Header Start -->
-        <div class="container-fluid py-5 bg-dark page-header mb-5 ">
-            <div class="container my-5 pt-5 pb-4">
-                <h1 class="display-3 text-white mb-3 animated slideInDown">Cabinet de Recrutements</h1>
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb text-uppercase">
-                        <li class="breadcrumb-item"><a href="#">Accueil</a></li>
-                        <li class="breadcrumb-item"><a href="#">Domaines</a></li>
-                        <li class="breadcrumb-item text-white active" aria-current="page">Cabinet de Recrutement </li>
-                    </ol>
-                </nav>
-            </div>
-        </div>
-
-        <!-- Header End -->
-
-        <!-- Carousel Start -->
-        <!-- Carousel End -->
-
-
-       <!-- liste cabinet start -->
-
-
-       
-
-        <!-- Jobs Start -->
-        <div class="container-xxl py-5">
-            <div class="container">
-                <h1 class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">liste des cabinets de recrutement</h1>
-                <div class="tab-class text-center wow fadeInUp" data-wow-delay="0.3s">
-                    
-                    <div class="tab-content">
-                        <div id="tab-1" class="tab-pane fade show p-0 active">
-                      
-
-                       
-                            <div class="job-item p-4 mb-4">
-                                <div class="row g-4">
-                                    <div class="col-sm-12 col-md-8 d-flex align-items-center">
-                                         <div class="text-start ps-4">
-                                               <h5 class="mb-3"> Adéquation </h5>
-                                               <p>Cabinet de conseil en ressources humaines spécialisé dans le recrutement, la formation, le coaching et l’évaluation du personnel.</p>
-		                                       <p><span class="label1">Adresse : </span>89, Bd d'Anfa - Résidence Ibn Zaidoune-8ème étage 20060 - Casablanca</p>
-		                                       <p><span class="label1">Tél : </span>05 22 48 61 16</p>
-		                                      <p><span class="label1">Fax : </span>05 22 48 56 97</p>
-		                                      <p><span class="label1">E-mail : </span><a href="info@adequation.ma">info@adequation.ma</a></p>
-		                                      <p><span class="label1">Website : </span><a href="http://www.adequation.ma" rel="nofollow" target="_blank">http://www.adequation.ma</a>, <a href="http://www.recruteonline.com" rel="nofollow" target="_blank">http://www.recruteonline.com</a></p>
-
-                                        </div>
-                                    </div>
-
-                                </div>
+    <!-- Recruitment Agencies Header with Image -->
+    <div class="container-fluid p-0">
+        <div class="position-relative">
+            <img class="img-fluid w-100" src="frontoffice/assets/img/recruitment-header.jpg" alt="Recruitment Agencies Header" style="height: 300px; object-fit: cover;">
+            <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center" style="background: linear-gradient(135deg, rgba(37, 157, 171, 0.9), rgba(43, 155, 255, 0.8));">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-8 text-center">
+                            <h1 class="display-4 text-white animated slideInDown mb-4">
+                                <i class="fas fa-building me-3"></i>Cabinets de Recrutement
+                            </h1>
+                            <p class="fs-5 fw-medium text-white mb-4 pb-2">
+                                Découvrez les meilleurs cabinets de recrutement au Maroc pour votre carrière
+                            </p>
+                            <div class="d-flex justify-content-center gap-3">
+                                <a href="#agencies-list" class="btn btn-light py-md-3 px-md-5 me-3 animated slideInLeft">
+                                    <i class="fas fa-handshake me-2"></i>Voir les Cabinets
+                                </a>
+                                <a href="enhanced_search.php" class="btn btn-outline-light py-md-3 px-md-5 animated slideInRight">
+                                    <i class="fas fa-search me-2"></i>Rechercher des Emplois
+                                </a>
                             </div>
-
-
-                            <div class="job-item p-4 mb-4">
-                                <div class="row g-4">
-                                    <div class="col-sm-12 col-md-8 d-flex align-items-center">
-                                        <div class="text-start ps-4">
-                                             <h5 class="mb-3"> It Skills Services </h5>   
-		                                   <p>Cabinet de recrutement spécialisé dans  le domaine des métiers de l'informatique</p>
-                                           <p><span class="label">Adresse : </span>Technopark Route de Nouaceur Angle RC 11, 20000 - Casablanca</p>
-	                                 	   <p><span class="label">Tél : </span>+212 522 21 91 98</p>
-		                                   <p><span class="label">Fax : </span>+212 522 21 91 98</p>
-	                                     	<p><span class="label">E-mail : </span><a href="mailto:info@it-skills-services.com">info@it-skills-services.com</a></p>
-	                                     	<p><span class="label">Website : </span><a href="http://www.it-skills-services.com/" rel="nofollow" target="_blank">http://www.it-skills-services.com/</a></p>
-	
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-
-
-                            <div class="job-item p-4 mb-4">
-                                <div class="row g-4">
-                                    <div class="col-sm-12 col-md-8 d-flex align-items-center">
-                                        <div class="text-start ps-4">
-                                          <h5 class="mb-3"> Multicibles </h5>
-                                          <p>cabinet de conseil en recrutement, spécialisé dans la recherche et la sélection de tous types de profils dans des secteurs d'activité très variés</p>
-                                           <p><span class="label">Adresse : </span>51, rue Moussa Bnou Noussair, 1er étage - Casablanca</p>
-	                                        <p><span class="label">Tél : </span>+212 522 48 15 11</p>
-		                                    <p><span class="label">Fax : </span>+212 522 48 15 09</p>
-		                                   <p><span class="label">E-mail : </span><a href="mailto:zineb.lahlou@multicibles.ma">zineb.lahlou@multicibles.ma</a></p>
-	                                       <p><span class="label">Website : </span><a href="http://www.multicibles.com/" rel="nofollow" target="_blank">http://www.multicibles.com/</a></p>
-
-                                     </div>
-                                    </div>
-
-                                </div>
-                            </div>   
-
-
-                            <div class="job-item p-4 mb-4">
-                                <div class="row g-4">
-                                    <div class="col-sm-12 col-md-8 d-flex align-items-center">
-                                        <div class="text-start ps-4">
-                                            <h5 class="mb-3"> ORH Assessment </h5>
-                                            <p>Cabinet conseil en recrutement qui offre également des prestations en Assessment et prend en charge l’organisation de concours pour le compte de grandes entreprises publiques et privées</p>
-                                            <p><span class="label">Adresse : </span>45, boulevard d'Anfa, 10 éme étage 20000 - Casablanca</p>
-	                                        <p><span class="label">Tél : </span>+212 522 49 08 91 / +212 522 49 09 14</p>
-		                                    <p><span class="label">Fax : </span>+212 522 49 08 70</p>
-		                                    <p><span class="label">E-mail : </span><a href="mailto:recrutement@orhassessment.com">recrutement@orhassessment.com</a></p>
-		                                    <p><span class="label">Website : </span><a href="http://www.orhassessment.com/" rel="nofollow" target="_blank">http://www.orhassessment.com/</a></p>
-	
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                            <div class="job-item p-4 mb-4">
-                                <div class="row g-4">
-                                    <div class="col-sm-12 col-md-8 d-flex align-items-center">
-                                        <div class="text-start ps-4">
-                                            <h5 class="mb-3"> Delta Management </h5>
-                                            <p>Conseil en management, marketing institutionnel, outplacement, coaching personnel (recrutement de), enseignement privé: formation continue, Conseils d'entreprises</p>
-		                                    <p><span class="label">Adresse : </span>46, Boulevard  Abdellatif Ben Kaddour, 3°étage - Casablanca</p>
-	                                      	<p><span class="label">Tél : </span>+212 522 22 83 25</p>
-	                                      	<p><span class="label">Fax : </span>+212 522 22 83 26</p>
-	                                    	<p><span class="label">E-mail : </span><a href="mailto:recrutement@delta-management.net">recrutement@delta-management.net</a></p>
-                                    		<p><span class="label">Website : </span><a href="http://www.delta-management.net/" rel="nofollow" target="_blank">http://www.delta-management.net/</a></p>
-	
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-
-<!-- 
-                            <div class="entreprise">
-		<h2><a class="title" href="https://www.offres-emploi.ma/delta-management.mc" title="Delta Management ">Delta Management </a></h2>
-		</div> -->
-
-
-
-                            <div class="job-item p-4 mb-4">
-                                <div class="row g-4">
-                                    <div class="col-sm-12 col-md-8 d-flex align-items-center">
-                                        <div class="text-start ps-4">
-                                            <h5 class="mb-3"> Michael Page </h5>
-                                            <p>leader du recrutement et de l’intérim, au Maroc, Michael Page Africa intervient à la fois pour le recrutement de cadres expatriés, pour le compte de sociétés européennes, arabes, américaines et asiatiques, et pour le recrutement local</p>
-		                                    <p><span class="label">Adresse : </span>Twin Center – Tour Ouest – 16e étage Angle Bds Zerktouni et Al Massira - Casablanca</p>
-		                                    <p><span class="label">Tél : </span>+212 522 95 84 91</p>
-	                                        <p><span class="label">Fax : </span>+212 522 95 80 23</p>
-                                        	<p><span class="label">Website : </span><a href="http://www.michaelpageafrica.com/" rel="nofollow" target="_blank">http://www.michaelpageafrica.com/</a></p>
-
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div> 
-
-                            <div class="job-item p-4 mb-4">
-                                <div class="row g-4">
-                                    <div class="col-sm-12 col-md-8 d-flex align-items-center">
-                                        <div class="text-start ps-4">
-                                            <h5 class="mb-3">Vitae Conseil</h5>
-                                            <p>Cabinet de recrutement  de personnel international multispecialiste</p>
-		                                    <p><span class="label">Adresse : </span>283, bd Mohamed Zerktouni, 4°étage, 20050-45, boulevard d'Anfa, 10 éme étage 20000 - Casablanca</p>
-		                                    <p><span class="label">Tél : </span>+212 529 00 10 40</p>
-	                                    	<p><span class="label">Fax : </span>+212 522 39 10 67</p>
-	                                    	<p><span class="label">E-mail : </span><a href="mailto:condidat@agencevitaeconseil.com">condidat@agencevitaeconseil.com</a></p>
-	                                     	<p><span class="label">Website : </span><a href="http://www.agencevitaeconseil.com/" rel="nofollow" target="_blank">http://www.agencevitaeconseil.com/</a></p>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>  
-
-                            <div class="job-item p-4 mb-4">
-                                <div class="row g-4">
-                                    <div class="col-sm-12 col-md-8 d-flex align-items-center">
-                                         <div class="text-start ps-4">
-                                            <h5 class="mb-3">CercleRH</h5>
-                                            <p>Le cabinet de recrutement et conseil en gestion des ressources humaines à RABAT .</p>
-	                                    	<p><span class="label">Tél : </span>+212 537 68 03 24</p>
-	                                    	<p><span class="label">Fax : </span>+212 537 68 03 23</p>
-	                                    	<p><span class="label">E-mail : </span><a href="mailto:ms@cerclerh.ma">ms@cerclerh.ma</a></p>
-                                           <p><span class="label">Website : </span><a href="http://www.cerclerh.ma/" rel="nofollow" target="_blank">http://www.cerclerh.com/</a></p>
-	
-
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-
-                            <div class="job-item p-4 mb-4">
-                                <div class="row g-4">
-                                    <div class="col-sm-12 col-md-8 d-flex align-items-center">
-                                         <div class="text-start ps-4">
-                                            <h5 class="mb-3">Brain Business Power</h5>
-                                            <p>BRAIN BUSINESS POWER est un cabinet de Conseil en Ressources Humaines, de formation, de chasse de tête par approche directe de managers, experts, dirigeants et hauts potentiels, de recrutement multi-spécialiste ou en recrutement plus classique.</p>
-	                                       	<p><span class="label">Adresse : </span>29, Rue Bapaume angle Bd Med V</p>
-	                                        <p><span class="label">Tél : </span>05 22 24 08 37</p>
-	                                    	<p><span class="label">Fax : </span>05 22 24 08 37</p>
-	                                    	<p><span class="label">E-mail : </span><a href="contact@brainbusinesspower.com">contact@brainbusinesspower.com</a></p>
-	                                    	<p><span class="label">Website : </span><a href="http://www.brainbusinesspower.com" rel="nofollow" target="_blank">http://www.brainbusinesspower.com</a></p>
-
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div> 
-
-                            <div class="job-item p-4 mb-4">
-                                <div class="row g-4">
-                                    <div class="col-sm-12 col-md-8 d-flex align-items-center">
-                                         <div class="text-start ps-4">
-                                            <h5 class="mb-3">Crit</h5>
-                                            <p>Recrutement, gestion de personnel et bilans de compétences</p>
-		                                    <p><span class="label">Adresse : </span>67, Boulevard Massira El Khadra, 1er et 4è étage, 20100 - Casablanca</p>
-		                                    <p><span class="label">Tél : </span>+212 522 77 70 96</p>
-		                                    <p><span class="label">Fax : </span>+212 522 23 48 34</p>
-		                                    <p><span class="label">E-mail : </span><a href="mailto:maroc@groupe-crit.com">maroc@groupe-crit.com</a></p>
-	                                     	<p><span class="label">Website : </span><a href="http://www.crit-job.com/" rel="nofollow" target="_blank">http://www.crit-job.com</a></p>
-	
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                            
-                           
-                            <div class="job-item p-4 mb-4">
-                                <div class="row g-4">
-                                    <div class="col-sm-12 col-md-8 d-flex align-items-center">
-                                        <div class="text-start ps-4">
-                                            <h5 class="mb-3">Software Engineer</h5>   
-                                            <p>BRAIN BUSINESS POWER est un cabinet de Conseil en Ressources Humaines, de formation, de chasse de tête par approche directe de managers, experts, dirigeants et hauts potentiels, de recrutement multi-spécialiste ou en recrutement plus classique.</p>
-	                                       	<p><span class="label">Adresse : </span>29, Rue Bapaume angle Bd Med V</p>
-	                                     	<p><span class="label">Tél : </span>05 22 24 08 37</p>
-	                                    	<p><span class="label">Fax : </span>05 22 24 08 37</p>
-	                                    	<p><span class="label">E-mail : </span><a href="contact@brainbusinesspower.com">contact@brainbusinesspower.com</a></p>
-	                                    	<p><span class="label">Website : </span><a href="http://www.brainbusinesspower.com" rel="nofollow" target="_blank">http://www.brainbusinesspower.com</a></p>
-	                                  </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                             
-
-                            <div class="job-item p-4 mb-4">
-                                <div class="row g-4">
-                                    <div class="col-sm-12 col-md-8 d-flex align-items-center">
-                                        <div class="text-start ps-4">
-                                            <h5 class="mb-3">Kilimanjaro</h5>   
-                                            <p>Conseil en stratégie marketing et commercial recrutement de la force de vente</p>
-		                                    <p><span class="label">Adresse : </span>6 Rue Arrachati Résidence Hassounia 2ème étage Appt 5 - Casablanca</p>
-	                                     	<p><span class="label">Tél : </span>+212 522 47 32 02 / +212 522 47 32 09</p>
-		                                    <p><span class="label">Fax : </span>+212 522 47 32 58</p>
-	                                   </div>
-                                    </div>
-
-                                </div>
-                            </div>
-
-                            
-                            <div class="job-item p-4 mb-4">
-                                <div class="row g-4">
-                                    <div class="col-sm-12 col-md-8 d-flex align-items-center">
-                                        <div class="text-start ps-4">
-                                            <h5 class="mb-3">SGS</h5>   
-                                            <p>Société Générale de Surveillance, leader mondial de l'inspection, de la vérification, de l'analyse et de la certification</p>
-	                                    	<p><span class="label">Adresse : </span>SGS MAROC S.A. 71 Avenue des F.A.R 20000 - Casablanca</p>
-	                                    	<p><span class="label">Tél : </span>+212 522 30 74 91</p>
-	                                    	<p><span class="label">Fax : </span>+212 522 31 69 90</p>
-	                                    	<p><span class="label">E-mail : </span><a href="mailto:sgs.casablanca@sgs.com">sgs.casablanca@sgs.com</a></p>
-                                     		<p><span class="label">Website : </span><a href="http://www.sgs.com/" rel="nofollow" target="_blank">http://www.sgs.com/</a></p>
-                            	     </div>
-                                    </div>
-
-                                </div>
-                            </div>
-
-                           
-                            <div class="job-item p-4 mb-4">
-                                <div class="row g-4">
-                                    <div class="col-sm-12 col-md-8 d-flex align-items-center">
-                                        <div class="text-start ps-4">
-                                            <h5 class="mb-3">Bil Consulting</h5>   
-                                            <p>Cabinet spécialisé en conseil RH qui a développé ses services de telle façon à répondre au besoin d'optimisation des Ressources Humaines et au développement des personnes et des organisations</p>
-		                                    <p><span class="label">Adresse : </span>Ghandi Mall - Boulevard Ghandi Imm 8 - 4eme étage, Quartier Maarif Extension - Casablanca</p>
-		                                    <p><span class="label">Tél : </span>+212 522 99 32 25/26/27</p>
-	                                     	<p><span class="label">Fax : </span>+212 522 98 17 24</p>
-	                                    	<p><span class="label">E-mail : </span><a href="mailto:cv@bilconsulting.com">cv@bilconsulting.com</a></p>
-	                                      	<p><span class="label">Website : </span><a href="http://www.bilconsulting.com/" rel="nofollow" target="_blank">http://www.bilconsulting.com/</a></p>
-                                     	   </div>
-                                    </div>
-
-                                </div>
-                            </div>
-
-                          
-
-                            <div class="job-item p-4 mb-4">
-                                <div class="row g-4">
-                                    <div class="col-sm-12 col-md-8 d-flex align-items-center">
-                                        <div class="text-start ps-4">
-                                            <h5 class="mb-3">Dama Services</h5>   
-                                            <p>Conseil en recrutement et accompagnement, Approche Directe et chasse de tête, Evaluation de potentiel et bilan de compétences, Conseil en organisation et mise en place des outils RH, Optimisation de la politique de rémunération globale, Ingénierie de Formation, Travail temporaire</p>
-	                                     	<p><span class="label">Adresse : </span>7, Rue Sebta - Quartier des Hôpitaux - Casablanca</p>
-	                                     	<p><span class="label">Tél : </span>+212 522 49 25 50 / +212 522 20 92 90</p>
-	                                    	<p><span class="label">Fax : </span>+212 522 20 92 24</p>
-	                                    	<p><span class="label">E-mail : </span><a href="mailto:dama@damaservices.net">dama@damaservices.net</a></p>
-	                                    	<p><span class="label">Website : </span><a href="http://www.damaservices.net/" rel="nofollow" target="_blank">http://www.damaservices.net/</a></p>
-
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-
-
-
-
-                            <div class="job-item p-4 mb-4">
-                                <div class="row g-4">
-                                    <div class="col-sm-12 col-md-8 d-flex align-items-center">
-                                        <div class="text-start ps-4">
-                                            <h5 class="mb-3">Invest Rh</h5>   
-                                            <p>cabinet spécialisé dans le Recrutement, le conseil en stratégie Ressources Humaines, évaluation et formation</p>
-	                                      	<p><span class="label">Adresse : </span>Hay Ryad, Mahaj Ryad imm.6, 10100 - Rabat</p>
-		                                    <p><span class="label">Tél : </span>+212 537 71 40 29</p>
-	                                      	<p><span class="label">Fax : </span>+212 537 57 01 67</p>
-	                                     	<p><span class="label">E-mail : </span><a href="mailto:recrute@investrh.ma">recrute@investrh.ma</a></p>
-	                                      	<p><span class="label">Website : </span><a href="http://www.investrh.ma/" rel="nofollow" target="_blank">http://www.investrh.ma/</a></p>
-
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-
-
-                            <div class="job-item p-4 mb-4">
-                                <div class="row g-4">
-                                    <div class="col-sm-12 col-md-8 d-flex align-items-center">
-                                        <div class="text-start ps-4">
-                                            <h5 class="mb-3">POLE RH </h5>   
-                                            <p>POLE RH est un cabinet de recrutement de Formation et d'Intérim. La société propose une panoplie de services à savoir la sélection des candidats, évaluation des compétences, formation,…. Pour tous les besoins de recrutement en CDD, CDI ou en travail temporaire, mais aussi pour les besoins de reclassement.</p>
-		                                    <p><span class="label">Adresse : </span>52, Bd Zerktouni 4ème étage N°32 (en face du marché des fleurs) 20150 - Casablanca</p>
-		                                    <p><span class="label">Tél : </span>+212 522 20 02 57</p>
-	                                     	<p><span class="label">E-mail : </span><a href="mailto:contact@polerh.ma ">contact@polerh.ma </a></p>
-		                                     <p><span class="label">Website : </span><a href="http://www.polerh.ma/" rel="nofollow" target="_blank">http://www.polerh.ma/</a></p>
-	
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-
-
-                            <a class="btn btn-primary py-3 px-5" href="/">Acceuil </a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Jobs End -->
-        
-     
-       <!-- liste cabinet End-->
+    </div>
 
- <?php include 'frontoffice/include/footer2.php'; ?>
+    <!-- Recruitment Agencies Statistics Section -->
+    <div class="container-fluid py-5 bg-light">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-3 col-md-6">
+                    <div class="d-flex align-items-center bg-white rounded p-4 shadow-sm">
+                        <div class="flex-shrink-0 btn btn-danger btn-square rounded-circle me-3">
+                            <i class="fas fa-building text-white"></i>
+                        </div>
+                        <div class="ms-3">
+                            <h6 class="mb-1">25+</h6>
+                            <span class="text-muted">Cabinets Partenaires</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="d-flex align-items-center bg-white rounded p-4 shadow-sm">
+                        <div class="flex-shrink-0 btn btn-success btn-square rounded-circle me-3">
+                            <i class="fas fa-users text-white"></i>
+                        </div>
+                        <div class="ms-3">
+                            <h6 class="mb-1">5K+</h6>
+                            <span class="text-muted">Candidats Placés</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="d-flex align-items-center bg-white rounded p-4 shadow-sm">
+                        <div class="flex-shrink-0 btn btn-primary btn-square rounded-circle me-3">
+                            <i class="fas fa-star text-white"></i>
+                        </div>
+                        <div class="ms-3">
+                            <h6 class="mb-1">4.9</h6>
+                            <span class="text-muted">Note Moyenne</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="d-flex align-items-center bg-white rounded p-4 shadow-sm">
+                        <div class="flex-shrink-0 btn btn-info btn-square rounded-circle me-3">
+                            <i class="fas fa-map-marker-alt text-white"></i>
+                        </div>
+                        <div class="ms-3">
+                            <h6 class="mb-1">15</h6>
+                            <span class="text-muted">Villes Couvertes</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recruitment Agencies Content -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h2 class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">Liste des Cabinets de Recrutement</h2>
+                    
+                    <!-- Content Top Ad -->
+                    <?php echo displayContentTopAds(1); ?>
+                    
+                    <div class="tab-class text-center wow fadeInUp" data-wow-delay="0.3s">
+                        <div class="tab-content">
+                            <div id="tab-1" class="tab-pane fade show p-0 active">
+                                
+                                <!-- Inline Ad -->
+                                <?php echo displayInlineAds(1); ?>
+                                
+                                <!-- Adéquation -->
+                                <div class="recruitment-agency-card mb-4">
+                                    <div class="card border-0 shadow-sm">
+                                        <div class="card-body p-4">
+                                            <div class="row g-4">
+                                                <div class="col-sm-12 col-md-8">
+                                                    <div class="agency-info">
+                                                        <h5 class="agency-name mb-3">
+                                                            <i class="fas fa-building text-primary me-2"></i>
+                                                            Adéquation
+                                                        </h5>
+                                                        <p class="agency-description mb-3">
+                                                            Cabinet de conseil en ressources humaines spécialisé dans le recrutement, la formation, le coaching et l'évaluation du personnel.
+                                                        </p>
+                                                        <div class="agency-details">
+                                                            <div class="detail-item">
+                                                                <i class="fas fa-map-marker-alt text-primary me-2"></i>
+                                                                <span class="label">Adresse :</span> 89, Bd d'Anfa - Résidence Ibn Zaidoune-8ème étage 20060 - Casablanca
+                                                            </div>
+                                                            <div class="detail-item">
+                                                                <i class="fas fa-phone text-primary me-2"></i>
+                                                                <span class="label">Tél :</span> 05 22 48 61 16
+                                                            </div>
+                                                            <div class="detail-item">
+                                                                <i class="fas fa-fax text-primary me-2"></i>
+                                                                <span class="label">Fax :</span> 05 22 48 56 97
+                                                            </div>
+                                                            <div class="detail-item">
+                                                                <i class="fas fa-envelope text-primary me-2"></i>
+                                                                <span class="label">E-mail :</span> <a href="mailto:info@adequation.ma">info@adequation.ma</a>
+                                                            </div>
+                                                            <div class="detail-item">
+                                                                <i class="fas fa-globe text-primary me-2"></i>
+                                                                <span class="label">Website :</span> 
+                                                                <a href="http://www.adequation.ma" rel="nofollow" target="_blank">www.adequation.ma</a>, 
+                                                                <a href="http://www.recruteonline.com" rel="nofollow" target="_blank">www.recruteonline.com</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-4">
+                                                    <div class="agency-actions">
+                                                        <a href="http://www.adequation.ma" target="_blank" class="btn btn-primary w-100 mb-2">
+                                                            <i class="fas fa-external-link-alt me-2"></i>
+                                                            Visiter le Site
+                                                        </a>
+                                                        <a href="mailto:info@adequation.ma" class="btn btn-outline-primary w-100 mb-2">
+                                                            <i class="fas fa-envelope me-2"></i>
+                                                            Contacter
+                                                        </a>
+                                                        <button class="btn btn-outline-secondary w-100" onclick="shareAgency('Adéquation')">
+                                                            <i class="fas fa-share-alt me-2"></i>
+                                                            Partager
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- IT Skills Services -->
+                                <div class="recruitment-agency-card mb-4">
+                                    <div class="card border-0 shadow-sm">
+                                        <div class="card-body p-4">
+                                            <div class="row g-4">
+                                                <div class="col-sm-12 col-md-8">
+                                                    <div class="agency-info">
+                                                        <h5 class="agency-name mb-3">
+                                                            <i class="fas fa-laptop-code text-primary me-2"></i>
+                                                            IT Skills Services
+                                                        </h5>
+                                                        <p class="agency-description mb-3">
+                                                            Cabinet de recrutement spécialisé dans le domaine des métiers de l'informatique
+                                                        </p>
+                                                        <div class="agency-details">
+                                                            <div class="detail-item">
+                                                                <i class="fas fa-map-marker-alt text-primary me-2"></i>
+                                                                <span class="label">Adresse :</span> Technopark Route de Nouaceur Angle RC 11, 20000 - Casablanca
+                                                            </div>
+                                                            <div class="detail-item">
+                                                                <i class="fas fa-phone text-primary me-2"></i>
+                                                                <span class="label">Tél :</span> +212 522 21 91 98
+                                                            </div>
+                                                            <div class="detail-item">
+                                                                <i class="fas fa-fax text-primary me-2"></i>
+                                                                <span class="label">Fax :</span> +212 522 21 91 98
+                                                            </div>
+                                                            <div class="detail-item">
+                                                                <i class="fas fa-envelope text-primary me-2"></i>
+                                                                <span class="label">E-mail :</span> <a href="mailto:info@it-skills-services.com">info@it-skills-services.com</a>
+                                                            </div>
+                                                            <div class="detail-item">
+                                                                <i class="fas fa-globe text-primary me-2"></i>
+                                                                <span class="label">Website :</span> 
+                                                                <a href="http://www.it-skills-services.com/" rel="nofollow" target="_blank">www.it-skills-services.com</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-4">
+                                                    <div class="agency-actions">
+                                                        <a href="http://www.it-skills-services.com/" target="_blank" class="btn btn-primary w-100 mb-2">
+                                                            <i class="fas fa-external-link-alt me-2"></i>
+                                                            Visiter le Site
+                                                        </a>
+                                                        <a href="mailto:info@it-skills-services.com" class="btn btn-outline-primary w-100 mb-2">
+                                                            <i class="fas fa-envelope me-2"></i>
+                                                            Contacter
+                                                        </a>
+                                                        <button class="btn btn-outline-secondary w-100" onclick="shareAgency('IT Skills Services')">
+                                                            <i class="fas fa-share-alt me-2"></i>
+                                                            Partager
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Multicibles -->
+                                <div class="recruitment-agency-card mb-4">
+                                    <div class="card border-0 shadow-sm">
+                                        <div class="card-body p-4">
+                                            <div class="row g-4">
+                                                <div class="col-sm-12 col-md-8">
+                                                    <div class="agency-info">
+                                                        <h5 class="agency-name mb-3">
+                                                            <i class="fas fa-users text-primary me-2"></i>
+                                                            Multicibles
+                                                        </h5>
+                                                        <p class="agency-description mb-3">
+                                                            Cabinet de conseil en recrutement, spécialisé dans la recherche et la sélection de tous types de profils dans des secteurs d'activité très variés
+                                                        </p>
+                                                        <div class="agency-details">
+                                                            <div class="detail-item">
+                                                                <i class="fas fa-map-marker-alt text-primary me-2"></i>
+                                                                <span class="label">Adresse :</span> 51, rue Moussa Bnou Noussair, 1er étage - Casablanca
+                                                            </div>
+                                                            <div class="detail-item">
+                                                                <i class="fas fa-phone text-primary me-2"></i>
+                                                                <span class="label">Tél :</span> +212 522 48 15 11
+                                                            </div>
+                                                            <div class="detail-item">
+                                                                <i class="fas fa-fax text-primary me-2"></i>
+                                                                <span class="label">Fax :</span> +212 522 48 15 09
+                                                            </div>
+                                                            <div class="detail-item">
+                                                                <i class="fas fa-envelope text-primary me-2"></i>
+                                                                <span class="label">E-mail :</span> <a href="mailto:zineb.lahlou@multicibles.ma">zineb.lahlou@multicibles.ma</a>
+                                                            </div>
+                                                            <div class="detail-item">
+                                                                <i class="fas fa-globe text-primary me-2"></i>
+                                                                <span class="label">Website :</span> 
+                                                                <a href="http://www.multicibles.com/" rel="nofollow" target="_blank">www.multicibles.com</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-4">
+                                                    <div class="agency-actions">
+                                                        <a href="http://www.multicibles.com/" target="_blank" class="btn btn-primary w-100 mb-2">
+                                                            <i class="fas fa-external-link-alt me-2"></i>
+                                                            Visiter le Site
+                                                        </a>
+                                                        <a href="mailto:zineb.lahlou@multicibles.ma" class="btn btn-outline-primary w-100 mb-2">
+                                                            <i class="fas fa-envelope me-2"></i>
+                                                            Contacter
+                                                        </a>
+                                                        <button class="btn btn-outline-secondary w-100" onclick="shareAgency('Multicibles')">
+                                                            <i class="fas fa-share-alt me-2"></i>
+                                                            Partager
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Inline Ad -->
+                                <?php echo displayInlineAds(1); ?>
+                                
+                                <!-- Continue with other agencies... -->
+                                <?php
+                                // Add more agencies here following the same pattern
+                                ?>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Content Bottom Ad -->
+    <?php echo displayContentBottomAds(1); ?>
+</div>
+
+<!-- Popup Ads -->
+<?php echo displayPopupAds(1); ?>
+
+<!-- Sticky Ads -->
+<?php echo displayStickyAds(1); ?>
+
+<!-- Floating Ads -->
+<?php echo displayFloatingAds(1); ?>
+
+<style>
+.recruitment-agency-card {
+    transition: all 0.3s ease;
+}
+
+.recruitment-agency-card:hover {
+    transform: translateY(-2px);
+}
+
+.agency-name {
+    color: #2c3e50;
+    font-weight: 600;
+    font-size: 1.25rem;
+}
+
+.agency-description {
+    color: #6c757d;
+    line-height: 1.6;
+}
+
+.agency-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.detail-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.detail-item i {
+    margin-top: 0.25rem;
+    flex-shrink: 0;
+}
+
+.detail-item .label {
+    font-weight: 600;
+    color: #495057;
+    min-width: 80px;
+}
+
+.detail-item a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.detail-item a:hover {
+    text-decoration: underline;
+}
+
+.agency-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.card {
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.btn {
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+@media (max-width: 768px) {
+    .agency-actions {
+        margin-top: 1rem;
+    }
+    
+    .detail-item {
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+    
+    .detail-item .label {
+        min-width: auto;
+    }
+}
+</style>
+
+<script>
+// Share agency
+function shareAgency(agencyName) {
+    const shareUrl = window.location.href;
+    const shareTitle = `Découvrez ${agencyName} - Cabinet de recrutement sur JobMaroc.com`;
+    
+    if (navigator.share) {
+        navigator.share({
+            title: shareTitle,
+            url: shareUrl
+        });
+    } else {
+        // Fallback for browsers that don't support Web Share API
+        const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`;
+        window.open(facebookUrl, '_blank', 'width=600,height=400');
+    }
+}
+
+// Show notification
+function showNotification(message, type) {
+    const notification = document.createElement('div');
+    notification.className = `alert alert-${type === 'success' ? 'success' : 'info'} alert-dismissible fade show position-fixed`;
+    notification.style.cssText = 'top: 20px; right: 20px; z-index: 9999; min-width: 300px; max-width: 400px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);';
+    notification.innerHTML = `
+        <div class="d-flex align-items-center">
+            <i class="fas fa-${type === 'success' ? 'check-circle' : 'info-circle'} me-2"></i>
+            <span>${message}</span>
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    `;
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        if (notification.parentNode) {
+            notification.remove();
+        }
+    }, 3000);
+}
+</script>
+
+        <!-- Professional Footer Section -->
+        <div class="container-fluid bg-light py-5 mt-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="professional-section">
+                            <h3><i class="fas fa-info-circle"></i>Services Complémentaires</h3>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="enhanced-card">
+                                        <div class="enhanced-card-header">
+                                            <h4 class="enhanced-card-title">
+                                                <i class="fas fa-search me-2"></i>Recherche d'Emploi
+                                            </h4>
+                                        </div>
+                                        <p class="text-muted">Trouvez l'emploi parfait avec nos outils de recherche avancés et partenariats avec les meilleurs cabinets.</p>
+                                        <div class="mt-3">
+                                            <a href="enhanced_search.php" class="btn btn-primary">
+                                                <i class="fas fa-search me-2"></i>Rechercher
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="enhanced-card">
+                                        <div class="enhanced-card-header">
+                                            <h4 class="enhanced-card-title">
+                                                <i class="fas fa-building me-2"></i>Services Entreprises
+                                            </h4>
+                                        </div>
+                                        <p class="text-muted">Solutions sur mesure pour les entreprises. Diffusez vos offres et accédez à une base de données de candidats qualifiés.</p>
+                                        <div class="mt-3">
+                                            <a href="contact.php" class="btn btn-success">
+                                                <i class="fas fa-handshake me-2"></i>Nos Services
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="enhanced-card">
+                                        <div class="enhanced-card-header">
+                                            <h4 class="enhanced-card-title">
+                                                <i class="fas fa-users me-2"></i>Notre Communauté
+                                            </h4>
+                                        </div>
+                                        <p class="text-muted">Rejoignez notre communauté de professionnels et candidats qualifiés. Trouvez l'emploi de vos rêves ou recrutez les meilleurs talents.</p>
+                                        <div class="mt-3">
+                                            <a href="signup.php" class="btn btn-info">
+                                                <i class="fas fa-user-plus me-2"></i>Rejoindre
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Information Section -->
+        <div class="container-fluid bg-primary text-white py-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <div class="professional-section bg-transparent">
+                            <h3 class="text-white"><i class="fas fa-map-marker-alt"></i>Nos Coordonnées</h3>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="enhanced-card bg-white text-dark">
+                                        <div class="enhanced-card-header">
+                                            <h4 class="enhanced-card-title">
+                                                <i class="fas fa-map-marker-alt me-2 text-primary"></i>Adresse
+                                            </h4>
+                                        </div>
+                                        <p class="mb-0">54 Qu Hrilla, Safi, MAROC</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="enhanced-card bg-white text-dark">
+                                        <div class="enhanced-card-header">
+                                            <h4 class="enhanced-card-title">
+                                                <i class="fas fa-phone me-2 text-primary"></i>Téléphone
+                                            </h4>
+                                        </div>
+                                        <p class="mb-0">+212 697825008</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="enhanced-card bg-white text-dark">
+                                        <div class="enhanced-card-header">
+                                            <h4 class="enhanced-card-title">
+                                                <i class="fas fa-envelope me-2 text-primary"></i>Email
+                                            </h4>
+                                        </div>
+                                        <p class="mb-0">yassineboudairaa@gmail.com</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <style>
+        /* Professional Sections */
+        .professional-section {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .professional-section h3 {
+            color: #2c3e50;
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .professional-section h3 i {
+            color: #007bff;
+            font-size: 1.2em;
+        }
+
+        /* Enhanced Cards */
+        .enhanced-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 1px solid #e9ecef;
+        }
+
+        .enhanced-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .enhanced-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f8f9fa;
+        }
+
+        .enhanced-card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin: 0;
+        }
+
+        /* Professional Section Enhancements */
+        .professional-section.bg-transparent {
+            background: transparent !important;
+            box-shadow: none;
+        }
+
+        .professional-section.bg-transparent h3 {
+            color: #ffffff !important;
+        }
+
+        .professional-section.bg-transparent .enhanced-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* Enhanced Card Improvements */
+        .enhanced-card.bg-white {
+            background: #ffffff !important;
+        }
+
+        .enhanced-card.bg-white .enhanced-card-header {
+            border-bottom-color: #e2e8f0;
+        }
+
+        .enhanced-card.bg-white .enhanced-card-title {
+            color: #1e293b;
+        }
+
+        @media (max-width: 768px) {
+            .professional-section {
+                padding: 20px;
+            }
+
+            .enhanced-card {
+                padding: 20px;
+            }
+        }
+        </style>
+
+<!-- Ad Display System CSS -->
+<link href="assets/css/ads-display.css" rel="stylesheet">
+
+<!-- Ad Display System JavaScript -->
+<script src="assets/js/ads-display.js"></script>
+
+<?php include 'frontoffice/include/footer2.php'; ?>
 

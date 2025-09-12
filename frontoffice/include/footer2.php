@@ -1,3 +1,4 @@
+        </div>
         <!-- Footer Start -->
         <div class="container-fluid bg-dark text-white-50 footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
             <div class="container py-5">
@@ -12,9 +13,9 @@
                     </div>
                     <div class="col-lg-3 col-md-6">
                         <h5 class="text-white mb-4">Liens rapides</h5>
-                        <a class="btn btn-link text-white-50" href="index.php">Accuiel</a>
+                        <a class="btn btn-link text-white-50" href="index.php">Accueil</a>
                         <a class="btn btn-link text-white-50" href="blog.php">Blogs</a>
-                        <a class="btn btn-link text-white-50" href="Consiel.php">Consiel Cariere</a>
+                        <a class="btn btn-link text-white-50" href="Consiel.php">Conseil Carrière</a>
                         <a class="btn btn-link text-white-50" href="cabinets%20de%20recrutements.php">Cabinets De Recrutements</a>
                     </div>
                     <div class="col-lg-3 col-md-6">
@@ -43,7 +44,7 @@
                 <div class="copyright">
                     <div class="row">
                         <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                            &copy; <a class="border-bottom" href="Index.php">JobMaroc</a>,Recrutement au Maroc,
+                            &copy; <a class="border-bottom" href="index.php">JobMaroc</a>, Recrutement au Maroc,
 							
 							<!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
 							Ce site est gratuit @2022-2022. By <a class="border-bottom" href="https://www.linkedin.com/in/yassine-boudaira/">YASSINE BOUDAIRA</a>
@@ -51,7 +52,7 @@
 
                         <div class="col-md-6 text-center text-md-end">
                             <div class="footer-menu">
-                                <a href="Index.php">Acueil</a>
+                                <a href="index.php">Accueil</a>
                                 <a href="">Cookies</a>
                                 <a href="">Aide</a>
                                 <a href="">FQAs</a>

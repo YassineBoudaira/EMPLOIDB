@@ -1,57 +1,125 @@
-<?php include 'frontoffice/include/header2.php'; ?>
+<?php
+// Include session management
+include 'include/sess.php';
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Not Found - JobMaroc</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .error-container {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            max-width: 500px;
+            width: 90%;
+        }
+        .error-code {
+            font-size: 8rem;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        .error-message {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+        .error-description {
+            color: #666;
+            margin-bottom: 2rem;
+        }
+        .btn-home {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+        .btn-home:hover {
+            transform: translateY(-2px);
+            color: white;
+            text-decoration: none;
+        }
+        .search-box {
+            margin: 2rem 0;
+        }
+        .search-input {
+            border: 2px solid #eee;
+            border-radius: 50px;
+            padding: 12px 20px;
+            width: 100%;
+            max-width: 300px;
+            margin-right: 10px;
+        }
+        .search-btn {
+            background: #667eea;
+            border: none;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 50px;
+        }
+    </style>
+</head>
 <body>
-    <div class="container-fluid bg-white p-0">
-        <!-- Spinner Start -->
-        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
-        </div>
-        <!-- Spinner End -->
-
-
-        <!-- Navbar Start -->
-        <?php include 'frontoffice/include/menu2.php'; ?>
-        <!-- Navbar End -->
-
-
-        <!-- Header End -->
-        <div class="container-fluid py-5 bg-dark page-header mb-5">
-            <div class="container my-5 pt-5 pb-4">
-                <h1 class="display-3 text-white mb-3 animated slideInDown">404 Error</h1>
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb text-uppercase">
-                        <li class="breadcrumb-item"><a href="index.php">Acueil</a></li>
-                        <li class="breadcrumb-item"><a href="#">Domaines</a></li>
-                        <li class="breadcrumb-item text-white active" aria-current="page">404 Error</li>
-                    </ol>
-                </nav>
-            </div>
-        </div>
-        <!-- Header End -->
-
-
-        <!-- 404 Start -->
-        <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
-            <div class="container text-center">
-                <div class="row justify-content-center">
-                    <div class="col-lg-6">
-                        <i class="bi bi-exclamation-triangle display-1 text-primary"></i>
-                        <h1 class="display-1">404</h1>
-                        <h1 class="mb-4"><strong>Page Not Found<br>Page non trouvée</strong> </h1>
-                        <p class="mb-4">Nous sommes désolés, la page que vous avez recherchée n'existe pas sur notre site Web ! Allez peut-être sur notre page d'accueil ou essayez d'utiliser une recherche ?</p>
-                        <a class="btn btn-primary py-3 px-5" href="index.php">Retour à L'accueil</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- 404 End -->
-
+    <div class="error-container">
+        <div class="error-code">404</div>
+        <h1 class="error-message">Page Not Found</h1>
+        <p class="error-description">
+            Oops! The page you're looking for doesn't exist. It might have been moved, deleted, or you entered the wrong URL.
+        </p>
         
-  
-
-
-        <!-- Back to Top -->
-        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+        <!-- Search Box -->
+        <div class="search-box">
+            <form action="search.php" method="GET" class="d-flex justify-content-center">
+                <input type="text" name="q" class="search-input" placeholder="Search for jobs...">
+                <button type="submit" class="search-btn">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>
+        </div>
+        
+        <!-- Navigation Links -->
+        <div class="mt-4">
+            <a href="index.php" class="btn-home me-3">
+                <i class="fas fa-home me-2"></i>Home
+            </a>
+            <a href="frontoffice/job-list.php" class="btn-home me-3">
+                <i class="fas fa-briefcase me-2"></i>Jobs
+            </a>
+            <a href="contact.php" class="btn-home">
+                <i class="fas fa-envelope me-2"></i>Contact
+            </a>
+        </div>
+        
+        <!-- Helpful Links -->
+        <div class="mt-4">
+            <small class="text-muted">
+                Popular pages: 
+                <a href="about.php" class="text-decoration-none">About</a> • 
+                <a href="signup.php" class="text-decoration-none">Sign Up</a> • 
+                <a href="login.php" class="text-decoration-none">Login</a>
+            </small>
+        </div>
     </div>
-    <!-- <?php include 'frontoffice/include/footer2.php'; ?> -->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

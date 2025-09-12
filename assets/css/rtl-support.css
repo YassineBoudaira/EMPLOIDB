@@ -1,0 +1,298 @@
+/* EMPLOIDB RTL Support for Arabic Language */
+
+/* RTL Base Styles */
+[dir="rtl"] {
+    direction: rtl;
+    text-align: right;
+}
+
+[dir="rtl"] .navbar-nav {
+    flex-direction: row-reverse;
+}
+
+[dir="rtl"] .dropdown-menu {
+    right: 0;
+    left: auto;
+}
+
+[dir="rtl"] .me-1 { margin-left: 0.25rem !important; margin-right: 0 !important; }
+[dir="rtl"] .me-2 { margin-left: 0.5rem !important; margin-right: 0 !important; }
+[dir="rtl"] .ms-1 { margin-right: 0.25rem !important; margin-left: 0 !important; }
+[dir="rtl"] .ms-2 { margin-right: 0.5rem !important; margin-left: 0 !important; }
+
+[dir="rtl"] .text-start { text-align: right !important; }
+[dir="rtl"] .text-end { text-align: left !important; }
+
+/* RTL Form Elements */
+[dir="rtl"] .form-control {
+    text-align: right;
+}
+
+[dir="rtl"] .input-group .form-control {
+    border-radius: 0 0.375rem 0.375rem 0;
+}
+
+[dir="rtl"] .input-group-text {
+    border-radius: 0.375rem 0 0 0.375rem;
+}
+
+/* RTL Navigation */
+[dir="rtl"] .navbar-brand {
+    margin-right: 0;
+    margin-left: 1rem;
+}
+
+[dir="rtl"] .nav-link {
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
+}
+
+/* RTL Cards */
+[dir="rtl"] .card-body {
+    text-align: right;
+}
+
+/* RTL Buttons */
+[dir="rtl"] .btn i {
+    margin-left: 0.5rem;
+    margin-right: 0;
+}
+
+/* RTL Tables */
+[dir="rtl"] .table {
+    text-align: right;
+}
+
+[dir="rtl"] .table th,
+[dir="rtl"] .table td {
+    text-align: right;
+}
+
+/* RTL Modals */
+[dir="rtl"] .modal-header .btn-close {
+    margin: -0.5rem -0.5rem -0.5rem auto;
+}
+
+/* RTL Sidebar */
+[dir="rtl"] .sidebar {
+    right: 0;
+    left: auto;
+}
+
+[dir="rtl"] .sidebar .nav-link {
+    padding-right: 1rem;
+    padding-left: 0.5rem;
+}
+
+/* RTL Breadcrumbs */
+[dir="rtl"] .breadcrumb-item + .breadcrumb-item::before {
+    content: "\\";
+    transform: scaleX(-1);
+}
+
+/* RTL Pagination */
+[dir="rtl"] .pagination {
+    justify-content: flex-end;
+}
+
+/* RTL Alerts */
+[dir="rtl"] .alert {
+    text-align: right;
+}
+
+/* RTL Progress Bars */
+[dir="rtl"] .progress {
+    direction: ltr;
+}
+
+/* RTL Carousel */
+[dir="rtl"] .carousel-control-prev {
+    right: 0;
+    left: auto;
+}
+
+[dir="rtl"] .carousel-control-next {
+    left: 0;
+    right: auto;
+}
+
+/* RTL Dropdown */
+[dir="rtl"] .dropdown-toggle::after {
+    margin-right: 0.255em;
+    margin-left: 0;
+}
+
+/* RTL List Groups */
+[dir="rtl"] .list-group-item {
+    text-align: right;
+}
+
+/* RTL Badges */
+[dir="rtl"] .badge {
+    margin-right: 0.25rem;
+    margin-left: 0;
+}
+
+/* RTL Spacing Utilities */
+[dir="rtl"] .ps-0 { padding-right: 0 !important; padding-left: 0 !important; }
+[dir="rtl"] .ps-1 { padding-right: 0.25rem !important; padding-left: 0 !important; }
+[dir="rtl"] .ps-2 { padding-right: 0.5rem !important; padding-left: 0 !important; }
+[dir="rtl"] .ps-3 { padding-right: 1rem !important; padding-left: 0 !important; }
+
+[dir="rtl"] .pe-0 { padding-left: 0 !important; padding-right: 0 !important; }
+[dir="rtl"] .pe-1 { padding-left: 0.25rem !important; padding-right: 0 !important; }
+[dir="rtl"] .pe-2 { padding-left: 0.5rem !important; padding-right: 0 !important; }
+[dir="rtl"] .pe-3 { padding-left: 1rem !important; padding-right: 0 !important; }
+
+/* RTL Float Utilities */
+[dir="rtl"] .float-start { float: right !important; }
+[dir="rtl"] .float-end { float: left !important; }
+
+/* RTL Text Alignment */
+[dir="rtl"] .text-start { text-align: right !important; }
+[dir="rtl"] .text-end { text-align: left !important; }
+
+/* RTL Flexbox */
+[dir="rtl"] .flex-row { flex-direction: row-reverse !important; }
+[dir="rtl"] .flex-row-reverse { flex-direction: row !important; }
+
+/* RTL Position */
+[dir="rtl"] .start-0 { right: 0 !important; left: auto !important; }
+[dir="rtl"] .end-0 { left: 0 !important; right: auto !important; }
+
+/* RTL Border */
+[dir="rtl"] .border-start { border-right: 1px solid !important; border-left: 0 !important; }
+[dir="rtl"] .border-end { border-left: 1px solid !important; border-right: 0 !important; }
+
+/* RTL Shadow */
+[dir="rtl"] .shadow-sm { box-shadow: -0.125rem 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important; }
+[dir="rtl"] .shadow { box-shadow: -0.5rem 0.5rem 1rem rgba(0, 0, 0, 0.15) !important; }
+[dir="rtl"] .shadow-lg { box-shadow: -1rem 1rem 3rem rgba(0, 0, 0, 0.175) !important; }
+
+/* RTL Animation */
+[dir="rtl"] .slide-in-right { animation: slideInLeft 0.3s ease-out; }
+[dir="rtl"] .slide-in-left { animation: slideInRight 0.3s ease-out; }
+
+@keyframes slideInLeft {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(0); }
+}
+
+@keyframes slideInRight {
+    from { transform: translateX(100%); }
+    to { transform: translateX(0); }
+}
+
+/* RTL Custom Components */
+[dir="rtl"] .emploidb-hero {
+    text-align: right;
+}
+
+[dir="rtl"] .emploidb-hero .container {
+    direction: rtl;
+}
+
+[dir="rtl"] .emploidb-card {
+    text-align: right;
+}
+
+[dir="rtl"] .emploidb-card .card-body {
+    text-align: right;
+}
+
+/* RTL Language Switcher */
+[dir="rtl"] .language-switcher {
+    direction: ltr;
+}
+
+[dir="rtl"] .language-switcher .dropdown-menu {
+    direction: rtl;
+    text-align: right;
+}
+
+/* RTL Search Form */
+[dir="rtl"] .search-form {
+    direction: rtl;
+}
+
+[dir="rtl"] .search-form .form-control {
+    text-align: right;
+}
+
+[dir="rtl"] .search-form .btn {
+    margin-right: 0.5rem;
+    margin-left: 0;
+}
+
+/* RTL Job Cards */
+[dir="rtl"] .job-card {
+    text-align: right;
+}
+
+[dir="rtl"] .job-card .job-title {
+    text-align: right;
+}
+
+[dir="rtl"] .job-card .job-company {
+    text-align: right;
+}
+
+[dir="rtl"] .job-card .job-location {
+    text-align: right;
+}
+
+/* RTL Footer */
+[dir="rtl"] .footer {
+    text-align: right;
+}
+
+[dir="rtl"] .footer .footer-content {
+    direction: rtl;
+}
+
+/* RTL Admin Panel */
+[dir="rtl"] .admin-sidebar {
+    right: 0;
+    left: auto;
+}
+
+[dir="rtl"] .admin-content {
+    margin-right: 250px;
+    margin-left: 0;
+}
+
+[dir="rtl"] .admin-header {
+    text-align: right;
+}
+
+/* RTL Employer Panel */
+[dir="rtl"] .employer-sidebar {
+    right: 0;
+    left: auto;
+}
+
+[dir="rtl"] .employer-content {
+    margin-right: 250px;
+    margin-left: 0;
+}
+
+/* RTL Responsive */
+@media (max-width: 768px) {
+    [dir="rtl"] .admin-content,
+    [dir="rtl"] .employer-content {
+        margin-right: 0;
+        margin-left: 0;
+    }
+    
+    [dir="rtl"] .admin-sidebar,
+    [dir="rtl"] .employer-sidebar {
+        right: -250px;
+        left: auto;
+    }
+    
+    [dir="rtl"] .admin-sidebar.show,
+    [dir="rtl"] .employer-sidebar.show {
+        right: 0;
+        left: auto;
+    }
+}

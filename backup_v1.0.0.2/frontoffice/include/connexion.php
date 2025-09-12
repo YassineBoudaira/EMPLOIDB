@@ -1,1 +1,0 @@
-<?php $bd = new PDO('mysql:dbname=emploi','root','');

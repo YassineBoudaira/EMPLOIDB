@@ -1,0 +1,663 @@
+/* Advanced Ad Display System Styles */
+
+/* Base Ad Container */
+.ad-container {
+    position: relative;
+    margin: 15px 0;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.ad-container:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.ad-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    width: 100%;
+}
+
+.ad-link:hover {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Ad Badge */
+.ad-badge {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: rgba(0,0,0,0.7);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    z-index: 10;
+}
+
+/* Banner Ads */
+.ad-banner {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.ad-banner .ad-image {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
+    flex-shrink: 0;
+}
+
+.ad-banner .ad-content h3 {
+    margin: 0 0 8px 0;
+    font-size: 20px;
+    font-weight: 600;
+    color: white;
+}
+
+.ad-banner .ad-content p {
+    margin: 0 0 12px 0;
+    opacity: 0.9;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.ad-banner .ad-cta {
+    background: rgba(255,255,255,0.2);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    display: inline-block;
+    transition: background 0.3s ease;
+}
+
+.ad-banner .ad-cta:hover {
+    background: rgba(255,255,255,0.3);
+}
+
+/* Sidebar Ads */
+.ad-sidebar {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border: 1px solid #e9ecef;
+}
+
+.ad-sidebar .ad-sidebar-image {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.ad-sidebar .ad-sidebar-content h4 {
+    margin: 0 0 10px 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.ad-sidebar .ad-sidebar-content p {
+    margin: 0 0 15px 0;
+    font-size: 13px;
+    color: #6c757d;
+    line-height: 1.4;
+}
+
+.ad-sidebar .ad-cta {
+    background: #007bff;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    display: inline-block;
+    transition: background 0.3s ease;
+}
+
+.ad-sidebar .ad-cta:hover {
+    background: #0056b3;
+}
+
+/* Inline Ads */
+.ad-inline {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    color: white;
+    border-radius: 12px;
+    padding: 25px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.ad-inline .ad-inline-content h3 {
+    margin: 0 0 12px 0;
+    font-size: 22px;
+    font-weight: 600;
+    color: white;
+}
+
+.ad-inline .ad-inline-content p {
+    margin: 0 0 20px 0;
+    opacity: 0.9;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.ad-inline .ad-inline-cta {
+    background: rgba(255,255,255,0.2);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 6px;
+    font-weight: 500;
+    display: inline-block;
+    transition: background 0.3s ease;
+}
+
+.ad-inline .ad-inline-cta:hover {
+    background: rgba(255,255,255,0.3);
+}
+
+/* Popup Ads */
+.ad-popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(5px);
+}
+
+.ad-popup {
+    background: white;
+    border-radius: 16px;
+    padding: 30px;
+    max-width: 450px;
+    width: 90%;
+    position: relative;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    animation: popupSlideIn 0.3s ease-out;
+}
+
+@keyframes popupSlideIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8) translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.ad-popup .ad-close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: #666;
+    transition: color 0.3s ease;
+}
+
+.ad-popup .ad-close:hover {
+    color: #333;
+}
+
+.ad-popup .ad-popup-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: 20px;
+}
+
+.ad-popup .ad-popup-content h2 {
+    margin: 0 0 15px 0;
+    color: #2c3e50;
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.ad-popup .ad-popup-content p {
+    margin: 0 0 25px 0;
+    color: #6c757d;
+    line-height: 1.6;
+    font-size: 14px;
+}
+
+.ad-popup .ad-popup-cta {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 8px;
+    display: inline-block;
+    font-weight: 500;
+    transition: transform 0.3s ease;
+}
+
+.ad-popup .ad-popup-cta:hover {
+    transform: translateY(-2px);
+}
+
+/* Video Ads */
+.ad-video {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.ad-video .ad-video-player {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+}
+
+.ad-video .ad-video-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0,0,0,0.8));
+    color: white;
+    padding: 25px;
+}
+
+.ad-video .ad-video-overlay h3 {
+    margin: 0 0 10px 0;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.ad-video .ad-video-overlay p {
+    margin: 0;
+    opacity: 0.9;
+    font-size: 14px;
+}
+
+/* Carousel Ads */
+.ad-carousel {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.ad-carousel .ad-carousel-image {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+
+.ad-carousel .ad-carousel-content {
+    background: white;
+    padding: 25px;
+    border-radius: 0 0 12px 12px;
+}
+
+.ad-carousel .ad-carousel-content h3 {
+    margin: 0 0 12px 0;
+    font-size: 20px;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.ad-carousel .ad-carousel-content p {
+    margin: 0;
+    color: #6c757d;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* Native Ads */
+.ad-native {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border: 1px solid #e9ecef;
+}
+
+.ad-native .ad-native-content {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.ad-native .ad-native-image {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 8px;
+    flex-shrink: 0;
+}
+
+.ad-native .ad-native-text h4 {
+    margin: 0 0 5px 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.ad-native .ad-native-text p {
+    margin: 0;
+    font-size: 13px;
+    color: #6c757d;
+    line-height: 1.4;
+}
+
+/* Sticky Ads */
+.ad-sticky {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 15px 20px;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    animation: stickySlideUp 0.5s ease-out;
+}
+
+@keyframes stickySlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.ad-sticky .ad-sticky-content {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex: 1;
+}
+
+.ad-sticky .ad-sticky-text {
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.ad-sticky .ad-sticky-cta {
+    background: rgba(255,255,255,0.2);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.ad-sticky .ad-sticky-close {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 0;
+    margin-left: 15px;
+}
+
+/* Floating Ads */
+.ad-floating {
+    position: fixed;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    background: white;
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    z-index: 1000;
+    max-width: 200px;
+    animation: floatingSlideIn 0.5s ease-out;
+}
+
+@keyframes floatingSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50%) translateX(100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(-50%) translateX(0);
+    }
+}
+
+.ad-floating .ad-floating-image {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.ad-floating .ad-floating-content {
+    text-align: center;
+}
+
+.ad-floating .ad-floating-text {
+    font-size: 12px;
+    font-weight: 500;
+    color: #2c3e50;
+    line-height: 1.3;
+}
+
+.ad-floating .ad-floating-close {
+    position: absolute;
+    top: 5px;
+    right: 8px;
+    background: none;
+    border: none;
+    color: #666;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .ad-banner {
+        flex-direction: column;
+        text-align: center;
+        padding: 20px 15px;
+    }
+    
+    .ad-banner .ad-image {
+        margin-right: 0;
+        margin-bottom: 15px;
+    }
+    
+    .ad-popup {
+        margin: 20px;
+        max-width: none;
+        padding: 25px 20px;
+    }
+    
+    .ad-video .ad-video-player {
+        height: 200px;
+    }
+    
+    .ad-sticky {
+        left: 10px;
+        right: 10px;
+        bottom: 10px;
+        padding: 12px 15px;
+    }
+    
+    .ad-floating {
+        right: 10px;
+        max-width: 150px;
+        padding: 12px;
+    }
+    
+    .ad-floating .ad-floating-image {
+        height: 100px;
+    }
+    
+    .ad-native .ad-native-content {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .ad-native .ad-native-image {
+        width: 80px;
+        height: 80px;
+    }
+}
+
+@media (max-width: 480px) {
+    .ad-banner .ad-content h3 {
+        font-size: 18px;
+    }
+    
+    .ad-inline .ad-inline-content h3 {
+        font-size: 20px;
+    }
+    
+    .ad-popup .ad-popup-content h2 {
+        font-size: 20px;
+    }
+    
+    .ad-sticky .ad-sticky-content {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+}
+
+/* Animation Classes */
+.ad-fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.ad-slide-up {
+    animation: slideUp 0.5s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.ad-bounce {
+    animation: bounce 0.6s ease-out;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px);
+    }
+    60% {
+        transform: translateY(-5px);
+    }
+}
+
+/* Ad Loading States */
+.ad-loading {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    color: #6c757d;
+}
+
+.ad-loading::after {
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #6c757d;
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: spin 1s linear infinite;
+    margin-left: 10px;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Ad Error States */
+.ad-error {
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    border-radius: 8px;
+    padding: 15px;
+    text-align: center;
+    font-size: 14px;
+}
+
+/* Ad Performance Indicators */
+.ad-performance {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    background: rgba(0,0,0,0.7);
+    color: white;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 500;
+}
+
+.ad-performance.high {
+    background: rgba(40, 167, 69, 0.8);
+}
+
+.ad-performance.medium {
+    background: rgba(255, 193, 7, 0.8);
+}
+
+.ad-performance.low {
+    background: rgba(220, 53, 69, 0.8);
+}

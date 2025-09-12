@@ -1,9 +1,11 @@
 <?php
 // Session configuration - MUST be at the top before any session starts
-ini_set('session.cookie_httponly', 1);
-ini_set('session.cookie_secure', isset($_SERVER['HTTPS']));
-ini_set('session.use_strict_mode', 1);
-ini_set('session.cookie_samesite', 'Strict');
+if (!headers_sent()) {
+    ini_set('session.cookie_httponly', 1);
+    ini_set('session.cookie_secure', isset($_SERVER['HTTPS']));
+    ini_set('session.use_strict_mode', 1);
+    ini_set('session.cookie_samesite', 'Strict');
+}
 
 // Error reporting (disable in production)
 if (isset($_SERVER['SERVER_NAME']) && ($_SERVER['SERVER_NAME'] === 'localhost' || $_SERVER['SERVER_NAME'] === '127.0.0.1')) {

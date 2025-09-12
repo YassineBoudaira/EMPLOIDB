@@ -1,52 +1,100 @@
-<?php include 'frontoffice/include/header2.php'; ?>
+<?php 
+// Include configuration first (before any session starts)
+include 'include/config.php';
+include 'include/sess.php';
+include 'include/connexion.php';
+include 'frontoffice/include/header2.php'; 
+?>
 
+<div class="container-fluid bg-white p-0">
+    <!-- Spinner Start -->
+    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
 
+    <!-- Navigation -->
+    <?php include 'frontoffice/include/menu2.php'; ?>
 
-
-    <div class="container-fluid bg-white p-0">
-        <!-- Spinner Start -->
-        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-                <span class="sr-only">Loading...</span>
+    <!-- Professional Privacy Policy Header -->
+    <div class="container-fluid py-5 mb-5" style="background: var(--emploidb-gradient-primary);">
+        <div class="container my-5 pt-5 pb-4">
+            <div class="row justify-content-center text-center">
+                <div class="col-lg-8">
+                    <div class="emploidb-animate-fade-in-up">
+                        <div class="d-flex justify-content-center mb-4">
+                            <div style="width: 80px; height: 80px; background: rgba(255, 255, 255, 0.2); border-radius: var(--emploidb-radius-full); display: flex; align-items: center; justify-content: center;">
+                                <i class="fas fa-shield-alt" style="font-size: 2.5rem; color: white;"></i>
+                            </div>
+                        </div>
+                        <h1 class="display-3 text-white mb-4 emploidb-font-black">
+                            Politique de Confidentialité
+                        </h1>
+                        <p class="emploidb-text-xl text-white mb-5" style="opacity: 0.9; line-height: 1.6;">
+                            Votre vie privée est importante pour nous. Découvrez comment EMPLOIDB protège vos données personnelles.
+                        </p>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb justify-content-center" style="background: rgba(255, 255, 255, 0.1); border-radius: var(--emploidb-radius-full); padding: var(--emploidb-spacing-3) var(--emploidb-spacing-6);">
+                                <li class="breadcrumb-item">
+                                    <a href="index.php" style="color: white; text-decoration: none;">
+                                        <i class="fas fa-home me-1"></i>Accueil
+                                    </a>
+                                </li>
+                                <li class="breadcrumb-item text-white active" aria-current="page" style="opacity: 0.8;">
+                                    Politique de Confidentialité
+                                </li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
             </div>
         </div>
-        <!-- Spinner End -->
+    </div>
 
+    <!-- Professional Privacy Policy Content -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <!-- Last Updated Info -->
+                    <div class="alert alert-info d-flex align-items-center mb-5" style="background: var(--emploidb-info-100); border: none; border-radius: var(--emploidb-radius-lg); padding: var(--emploidb-spacing-4);">
+                        <i class="fas fa-info-circle me-3" style="color: var(--emploidb-info);"></i>
+                        <div>
+                            <strong>Dernière mise à jour :</strong> <?= date('d F Y') ?>
+                            <br><small style="color: var(--emploidb-text-secondary);">Cette politique de confidentialité est effective à partir de cette date.</small>
+                        </div>
+                    </div>
 
-          <!-- Navbar End -->
-          <?php include 'frontoffice/include/menu2.php'; ?>
-        <!-- Header End -->
+                    <!-- Privacy Policy Introduction -->
+                    <div class="emploidb-card mb-6">
+                        <div class="card-body" style="padding: var(--emploidb-spacing-8);">
+                            <div class="d-flex align-items-center mb-4">
+                                <div style="width: 60px; height: 60px; background: var(--emploidb-gradient-primary); border-radius: var(--emploidb-radius-lg); display: flex; align-items: center; justify-content: center; margin-right: var(--emploidb-spacing-4);">
+                                    <i class="fas fa-user-shield" style="color: white; font-size: 1.5rem;"></i>
+                                </div>
+                                <div>
+                                    <h2 class="emploidb-font-black mb-1">Notre Engagement pour Votre Vie Privée</h2>
+                                    <p class="emploidb-text-secondary mb-0">Protection et transparence des données</p>
+                                </div>
+                            </div>
+                            <div class="emploidb-text-base" style="line-height: 1.7;">
+                                <p class="mb-4">
+                                    Chez <strong>EMPLOIDB</strong>, nous respectons votre vie privée et nous nous engageons à protéger vos données personnelles. 
+                                    Cette politique de confidentialité explique comment nous collectons, utilisons, partageons et protégeons vos informations 
+                                    lorsque vous utilisez notre plateforme de recherche d'emploi.
+                                </p>
+                                <p class="mb-0">
+                                    En utilisant nos services, vous acceptez les pratiques décrites dans cette politique. 
+                                    Nous vous encourageons à lire attentivement cette politique pour comprendre nos pratiques.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
 
-
-        <!-- Carousel Start -->
-       
-        <!-- Carousel End -->
-
-
-        <!-- Search Start -->
-                <div class="container-fluid py-5 bg-dark page-header mb-5">
-            <div class="container my-5 pt-5 pb-4">
-                <h1 class="display-3 text-white mb-3 animated slideInDown">confidentialité & politique</h1>
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb text-uppercase">
-                        <li class="breadcrumb-item"><a href="index.php">Accuiel</a></li>
-                        <li class="breadcrumb-item"><a href="Domaine.php">Domaines</a></li>
-                        <li class="breadcrumb-item text-white active" aria-current="page">confidentialité & politique</li>
-                    </ol>
-                </nav>
-            </div>
-        </div>
-
- <!-- About Start -->
-        <div class="container-xxl py-5">
-            <div class="container">
-
-            <div class="col-md-9">
-                        <div id="" class="content-column post-content">
-                            
-
-
-    
+                    <!-- Content continues here -->
+                    <div id="" class="content-column post-content">
 
 
 <div class="entry-header"><br><br><br>

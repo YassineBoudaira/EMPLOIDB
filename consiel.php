@@ -22,19 +22,86 @@
         <!-- Header End -->
 
         
-        <div class="container-fluid py-5 bg-dark page-header mb-5 ">
-            <div class="container my-5 pt-5 pb-4">
-                <h1 class="display-3 text-white mb-3 animated slideInDown">Consiels</h1>
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb text-uppercase">
-                        <li class="breadcrumb-item"><a href="#">Accueil</a></li>
-                        <li class="breadcrumb-item"><a href="#">Pages</a></li>
-                        <li class="breadcrumb-item text-white active" aria-current="page">Consiel</li>
-                    </ol>
-                </nav>
+        <!-- Career Advice Header with Image -->
+        <div class="container-fluid p-0">
+            <div class="position-relative">
+                <img class="img-fluid w-100" src="frontoffice/assets/img/career-advice-header.jpg" alt="Career Advice Header" style="height: 300px; object-fit: cover;">
+                <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center" style="background: linear-gradient(135deg, rgba(37, 157, 171, 0.9), rgba(43, 155, 255, 0.8));">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-8 text-center">
+                                <h1 class="display-4 text-white animated slideInDown mb-4">
+                                    <i class="fas fa-lightbulb me-3"></i>Conseils Carrière
+                                </h1>
+                                <p class="fs-5 fw-medium text-white mb-4 pb-2">
+                                    Découvrez nos conseils et astuces pour réussir votre carrière professionnelle
+                                </p>
+                                <div class="d-flex justify-content-center gap-3">
+                                    <a href="#career-tips" class="btn btn-light py-md-3 px-md-5 me-3 animated slideInLeft">
+                                        <i class="fas fa-book me-2"></i>Lire les Conseils
+                                    </a>
+                                    <a href="enhanced_search.php" class="btn btn-outline-light py-md-3 px-md-5 animated slideInRight">
+                                        <i class="fas fa-search me-2"></i>Rechercher des Emplois
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <!-- Header End -->
+
+        <!-- Career Advice Statistics Section -->
+        <div class="container-fluid py-5 bg-light">
+            <div class="container">
+                <div class="row g-4">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="d-flex align-items-center bg-white rounded p-4 shadow-sm">
+                            <div class="flex-shrink-0 btn btn-warning btn-square rounded-circle me-3">
+                                <i class="fas fa-lightbulb text-white"></i>
+                            </div>
+                            <div class="ms-3">
+                                <h6 class="mb-1">50+</h6>
+                                <span class="text-muted">Conseils Disponibles</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="d-flex align-items-center bg-white rounded p-4 shadow-sm">
+                            <div class="flex-shrink-0 btn btn-success btn-square rounded-circle me-3">
+                                <i class="fas fa-users text-white"></i>
+                            </div>
+                            <div class="ms-3">
+                                <h6 class="mb-1">10K+</h6>
+                                <span class="text-muted">Lecteurs Satisfaits</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="d-flex align-items-center bg-white rounded p-4 shadow-sm">
+                            <div class="flex-shrink-0 btn btn-primary btn-square rounded-circle me-3">
+                                <i class="fas fa-star text-white"></i>
+                            </div>
+                            <div class="ms-3">
+                                <h6 class="mb-1">4.8</h6>
+                                <span class="text-muted">Note Moyenne</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="d-flex align-items-center bg-white rounded p-4 shadow-sm">
+                            <div class="flex-shrink-0 btn btn-info btn-square rounded-circle me-3">
+                                <i class="fas fa-calendar text-white"></i>
+                            </div>
+                            <div class="ms-3">
+                                <h6 class="mb-1">Mise à jour</h6>
+                                <span class="text-muted">Hebdomadaire</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
         <!-- About Start -->
@@ -369,11 +436,253 @@
 </div>
 
         <!-- Consiel End -->
-</div>
+        </div>
 
+        <!-- Professional Footer Section -->
+        <div class="container-fluid bg-light py-5 mt-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="professional-section">
+                            <h3><i class="fas fa-info-circle"></i>Ressources Complémentaires</h3>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="enhanced-card">
+                                        <div class="enhanced-card-header">
+                                            <h4 class="enhanced-card-title">
+                                                <i class="fas fa-search me-2"></i>Recherche d'Emploi
+                                            </h4>
+                                        </div>
+                                        <p class="text-muted">Trouvez l'emploi parfait avec nos outils de recherche avancés et conseils personnalisés.</p>
+                                        <div class="mt-3">
+                                            <a href="enhanced_search.php" class="btn btn-primary">
+                                                <i class="fas fa-search me-2"></i>Rechercher
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="enhanced-card">
+                                        <div class="enhanced-card-header">
+                                            <h4 class="enhanced-card-title">
+                                                <i class="fas fa-graduation-cap me-2"></i>Formation Continue
+                                            </h4>
+                                        </div>
+                                        <p class="text-muted">Développez vos compétences avec nos conseils sur la formation continue et le développement professionnel.</p>
+                                        <div class="mt-3">
+                                            <a href="contact.php" class="btn btn-success">
+                                                <i class="fas fa-book me-2"></i>En savoir plus
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="enhanced-card">
+                                        <div class="enhanced-card-header">
+                                            <h4 class="enhanced-card-title">
+                                                <i class="fas fa-users me-2"></i>Notre Communauté
+                                            </h4>
+                                        </div>
+                                        <p class="text-muted">Rejoignez notre communauté de professionnels et partagez vos expériences et conseils.</p>
+                                        <div class="mt-3">
+                                            <a href="signup.php" class="btn btn-info">
+                                                <i class="fas fa-user-plus me-2"></i>Rejoindre
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
+        <!-- Contact Information Section -->
+        <div class="container-fluid bg-primary text-white py-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <div class="professional-section bg-transparent">
+                            <h3 class="text-white"><i class="fas fa-map-marker-alt"></i>Nos Coordonnées</h3>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="enhanced-card bg-white text-dark">
+                                        <div class="enhanced-card-header">
+                                            <h4 class="enhanced-card-title">
+                                                <i class="fas fa-map-marker-alt me-2 text-primary"></i>Adresse
+                                            </h4>
+                                        </div>
+                                        <p class="mb-0">54 Qu Hrilla, Safi, MAROC</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="enhanced-card bg-white text-dark">
+                                        <div class="enhanced-card-header">
+                                            <h4 class="enhanced-card-title">
+                                                <i class="fas fa-phone me-2 text-primary"></i>Téléphone
+                                            </h4>
+                                        </div>
+                                        <p class="mb-0">+212 697825008</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="enhanced-card bg-white text-dark">
+                                        <div class="enhanced-card-header">
+                                            <h4 class="enhanced-card-title">
+                                                <i class="fas fa-envelope me-2 text-primary"></i>Email
+                                            </h4>
+                                        </div>
+                                        <p class="mb-0">yassineboudairaa@gmail.com</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
+        <style>
+        /* Professional Sections */
+        .professional-section {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
 
+        .professional-section h3 {
+            color: #2c3e50;
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
 
+        .professional-section h3 i {
+            color: #007bff;
+            font-size: 1.2em;
+        }
+
+        /* Enhanced Cards */
+        .enhanced-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 1px solid #e9ecef;
+        }
+
+        .enhanced-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .enhanced-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f8f9fa;
+        }
+
+        .enhanced-card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin: 0;
+        }
+
+        /* Professional Section Enhancements */
+        .professional-section.bg-transparent {
+            background: transparent !important;
+            box-shadow: none;
+        }
+
+        .professional-section.bg-transparent h3 {
+            color: #ffffff !important;
+        }
+
+        .professional-section.bg-transparent .enhanced-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* Enhanced Card Improvements */
+        .enhanced-card.bg-white {
+            background: #ffffff !important;
+        }
+
+        .enhanced-card.bg-white .enhanced-card-header {
+            border-bottom-color: #e2e8f0;
+        }
+
+        .enhanced-card.bg-white .enhanced-card-title {
+            color: #1e293b;
+        }
+
+        /* Content Enhancements */
+        .content-column {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .page-heading h1 {
+            color: #2c3e50;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .post-info {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border-left: 4px solid #007bff;
+        }
+
+        .post-info .date {
+            color: #007bff;
+            font-weight: 600;
+        }
+
+        .post-info .visitors {
+            color: #6c757d;
+            margin-left: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .professional-section {
+                padding: 20px;
+            }
+
+            .enhanced-card {
+                padding: 20px;
+            }
+
+            .content-column {
+                padding: 20px;
+            }
+        }
+        </style>
+
+        <script>
+        // Initialize WOW.js for animations
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof WOW !== 'undefined') {
+                new WOW().init();
+            }
+        });
+        </script>
 
 <?php include 'frontoffice/include/footer2.php'; ?>

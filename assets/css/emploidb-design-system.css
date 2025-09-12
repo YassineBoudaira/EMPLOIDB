@@ -1,0 +1,1233 @@
+/*! 
+ * EMPLOIDB Professional Design System
+ * Version: 3.0.0 - Standardized Edition
+ * Professional Job Portal Platform
+ * (c) 2024 EMPLOIDB - All Rights Reserved
+ */
+
+/* =============================================================================
+   CUSTOMIZABLE COLOR SCHEMA
+   ============================================================================= */
+
+:root {
+    /* === MAIN BRAND COLORS (EASILY CUSTOMIZABLE) === */
+    --emploidb-brand-primary: #2563eb;      /* Main Brand Color - Change this to your preferred primary color */
+    --emploidb-brand-secondary: #059669;    /* Secondary Brand Color - Change this to your preferred secondary color */
+    --emploidb-brand-accent: #f59e0b;       /* Accent Brand Color - Change this to your preferred accent color */
+    
+    /* === AUTO-GENERATED COLOR VARIANTS === */
+    /* Primary Color Palette */
+    --emploidb-primary: var(--emploidb-brand-primary);
+    --emploidb-primary-50: #eff6ff;     /* Very light */
+    --emploidb-primary-100: #dbeafe;    /* Light */
+    --emploidb-primary-200: #bfdbfe;    /* Lighter */
+    --emploidb-primary-300: #93c5fd;    /* Medium light */
+    --emploidb-primary-400: #60a5fa;    /* Medium */
+    --emploidb-primary-500: #3b82f6;    /* Standard */
+    --emploidb-primary-600: var(--emploidb-brand-primary);    /* Primary (main) */
+    --emploidb-primary-700: #1d4ed8;    /* Dark */
+    --emploidb-primary-800: #1e40af;    /* Darker */
+    --emploidb-primary-900: #1e3a8a;    /* Very dark */
+
+    /* Secondary Color Palette */
+    --emploidb-secondary: var(--emploidb-brand-secondary);
+    --emploidb-secondary-50: #ecfdf5;
+    --emploidb-secondary-100: #d1fae5;
+    --emploidb-secondary-200: #a7f3d0;
+    --emploidb-secondary-300: #6ee7b7;
+    --emploidb-secondary-400: #34d399;
+    --emploidb-secondary-500: #10b981;
+    --emploidb-secondary-600: var(--emploidb-brand-secondary);
+    --emploidb-secondary-700: #047857;
+    --emploidb-secondary-800: #065f46;
+    --emploidb-secondary-900: #064e3b;
+
+    /* Accent Color Palette */
+    --emploidb-accent: var(--emploidb-brand-accent);
+    --emploidb-accent-50: #fffbeb;
+    --emploidb-accent-100: #fef3c7;
+    --emploidb-accent-200: #fde68a;
+    --emploidb-accent-300: #fcd34d;
+    --emploidb-accent-400: #fbbf24;
+    --emploidb-accent-500: var(--emploidb-brand-accent);
+    --emploidb-accent-600: #d97706;
+    --emploidb-accent-700: #b45309;
+    --emploidb-accent-800: #92400e;
+    --emploidb-accent-900: #78350f;
+
+    /* Neutral Colors - Slate */
+    --emploidb-neutral: #64748b;
+    --emploidb-neutral-50: #f8fafc;
+    --emploidb-neutral-100: #f1f5f9;
+    --emploidb-neutral-200: #e2e8f0;
+    --emploidb-neutral-300: #cbd5e1;
+    --emploidb-neutral-400: #94a3b8;
+    --emploidb-neutral-500: #64748b;
+    --emploidb-neutral-600: #475569;
+    --emploidb-neutral-700: #334155;
+    --emploidb-neutral-800: #1e293b;
+    --emploidb-neutral-900: #0f172a;
+
+    /* === SEMANTIC COLORS === */
+    --emploidb-success: #10b981;
+    --emploidb-success-light: #d1fae5;
+    --emploidb-success-dark: #047857;
+
+    --emploidb-warning: #f59e0b;
+    --emploidb-warning-light: #fef3c7;
+    --emploidb-warning-dark: #d97706;
+
+    --emploidb-error: #ef4444;
+    --emploidb-error-light: #fecaca;
+    --emploidb-error-dark: #dc2626;
+
+    --emploidb-info: #06b6d4;
+    --emploidb-info-light: #cffafe;
+    --emploidb-info-dark: #0891b2;
+
+    /* === BACKGROUND COLORS === */
+    --emploidb-bg-primary: #ffffff;
+    --emploidb-bg-secondary: #f8fafc;
+    --emploidb-bg-accent: #f1f5f9;
+    --emploidb-bg-dark: #1e293b;
+
+    /* === TEXT COLORS === */
+    --emploidb-text-primary: #1e293b;
+    --emploidb-text-secondary: #475569;
+    --emploidb-text-muted: #94a3b8;
+    --emploidb-text-inverse: #ffffff;
+
+    /* === TYPOGRAPHY === */
+    --emploidb-font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    --emploidb-font-display: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    --emploidb-font-mono: 'Fira Code', 'Monaco', 'Cascadia Code', 'Roboto Mono', monospace;
+
+    /* Font Weights */
+    --emploidb-font-weight-light: 300;
+    --emploidb-font-weight-normal: 400;
+    --emploidb-font-weight-medium: 500;
+    --emploidb-font-weight-semibold: 600;
+    --emploidb-font-weight-bold: 700;
+    --emploidb-font-weight-black: 900;
+
+    /* Font Sizes */
+    --emploidb-text-xs: 0.75rem;     /* 12px */
+    --emploidb-text-sm: 0.875rem;    /* 14px */
+    --emploidb-text-base: 1rem;      /* 16px */
+    --emploidb-text-lg: 1.125rem;    /* 18px */
+    --emploidb-text-xl: 1.25rem;     /* 20px */
+    --emploidb-text-2xl: 1.5rem;     /* 24px */
+    --emploidb-text-3xl: 1.875rem;   /* 30px */
+    --emploidb-text-4xl: 2.25rem;    /* 36px */
+    --emploidb-text-5xl: 3rem;       /* 48px */
+    --emploidb-text-6xl: 3.75rem;    /* 60px */
+
+    /* Line Heights */
+    --emploidb-leading-tight: 1.25;
+    --emploidb-leading-normal: 1.5;
+    --emploidb-leading-relaxed: 1.625;
+    --emploidb-leading-loose: 2;
+
+    /* === SPACING === */
+    --emploidb-spacing-0: 0;
+    --emploidb-spacing-1: 0.25rem;   /* 4px */
+    --emploidb-spacing-2: 0.5rem;    /* 8px */
+    --emploidb-spacing-3: 0.75rem;   /* 12px */
+    --emploidb-spacing-4: 1rem;      /* 16px */
+    --emploidb-spacing-5: 1.25rem;   /* 20px */
+    --emploidb-spacing-6: 1.5rem;    /* 24px */
+    --emploidb-spacing-7: 1.75rem;   /* 28px */
+    --emploidb-spacing-8: 2rem;      /* 32px */
+    --emploidb-spacing-10: 2.5rem;   /* 40px */
+    --emploidb-spacing-12: 3rem;     /* 48px */
+    --emploidb-spacing-16: 4rem;     /* 64px */
+    --emploidb-spacing-20: 5rem;     /* 80px */
+    --emploidb-spacing-24: 6rem;     /* 96px */
+
+    /* === BORDER RADIUS === */
+    --emploidb-radius-none: 0;
+    --emploidb-radius-sm: 0.125rem;   /* 2px */
+    --emploidb-radius: 0.25rem;       /* 4px */
+    --emploidb-radius-md: 0.375rem;   /* 6px */
+    --emploidb-radius-lg: 0.5rem;     /* 8px */
+    --emploidb-radius-xl: 0.75rem;    /* 12px */
+    --emploidb-radius-2xl: 1rem;      /* 16px */
+    --emploidb-radius-3xl: 1.5rem;    /* 24px */
+    --emploidb-radius-full: 9999px;
+
+    /* === SHADOWS === */
+    --emploidb-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --emploidb-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    --emploidb-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --emploidb-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --emploidb-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    --emploidb-shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    --emploidb-shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+
+    /* === TRANSITIONS === */
+    --emploidb-transition-fast: 150ms ease;
+    --emploidb-transition-normal: 250ms ease;
+    --emploidb-transition-slow: 350ms ease;
+    --emploidb-transition-all: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* === GRADIENTS === */
+    --emploidb-gradient-primary: linear-gradient(135deg, var(--emploidb-primary-600) 0%, var(--emploidb-primary-700) 100%);
+    --emploidb-gradient-secondary: linear-gradient(135deg, var(--emploidb-secondary-600) 0%, var(--emploidb-secondary-700) 100%);
+    --emploidb-gradient-accent: linear-gradient(135deg, var(--emploidb-accent-500) 0%, var(--emploidb-accent-600) 100%);
+    --emploidb-gradient-warm: linear-gradient(135deg, var(--emploidb-accent-500) 0%, var(--emploidb-error) 100%);
+    --emploidb-gradient-cool: linear-gradient(135deg, var(--emploidb-primary-600) 0%, var(--emploidb-info) 100%);
+    --emploidb-gradient-success: linear-gradient(135deg, var(--emploidb-secondary-500) 0%, var(--emploidb-secondary-600) 100%);
+
+    /* === BREAKPOINTS === */
+    --emploidb-breakpoint-sm: 576px;
+    --emploidb-breakpoint-md: 768px;
+    --emploidb-breakpoint-lg: 992px;
+    --emploidb-breakpoint-xl: 1200px;
+    --emploidb-breakpoint-2xl: 1400px;
+
+    /* === Z-INDEX SCALE === */
+    --emploidb-z-dropdown: 1000;
+    --emploidb-z-sticky: 1010;
+    --emploidb-z-fixed: 1020;
+    --emploidb-z-modal-backdrop: 1030;
+    --emploidb-z-modal: 1040;
+    --emploidb-z-popover: 1050;
+    --emploidb-z-tooltip: 1060;
+    --emploidb-z-toast: 1070;
+}
+
+/* =============================================================================
+   BASE & RESET STYLES
+   ============================================================================= */
+
+/* Reset and normalize */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-family: var(--emploidb-font-primary);
+    line-height: var(--emploidb-leading-normal);
+    -webkit-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--emploidb-font-primary);
+    font-size: var(--emploidb-text-base);
+    font-weight: var(--emploidb-font-weight-normal);
+    line-height: var(--emploidb-leading-normal);
+    color: var(--emploidb-text-primary);
+    background-color: var(--emploidb-bg-primary);
+    overflow-x: hidden;
+}
+
+/* =============================================================================
+   TYPOGRAPHY SYSTEM
+   ============================================================================= */
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--emploidb-font-display);
+    font-weight: var(--emploidb-font-weight-bold);
+    line-height: var(--emploidb-leading-tight);
+    color: var(--emploidb-text-primary);
+    margin-bottom: var(--emploidb-spacing-4);
+}
+
+h1 { font-size: var(--emploidb-text-4xl); }
+h2 { font-size: var(--emploidb-text-3xl); }
+h3 { font-size: var(--emploidb-text-2xl); }
+h4 { font-size: var(--emploidb-text-xl); }
+h5 { font-size: var(--emploidb-text-lg); }
+h6 { font-size: var(--emploidb-text-base); }
+
+p {
+    margin-bottom: var(--emploidb-spacing-4);
+    line-height: var(--emploidb-leading-relaxed);
+}
+
+a {
+    color: var(--emploidb-primary);
+    text-decoration: none;
+    transition: var(--emploidb-transition-normal);
+}
+
+a:hover {
+    color: var(--emploidb-primary-700);
+    text-decoration: underline;
+}
+
+/* =============================================================================
+   BUTTON SYSTEM
+   ============================================================================= */
+
+.emploidb-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--emploidb-spacing-2);
+    
+    padding: var(--emploidb-spacing-3) var(--emploidb-spacing-6);
+    border: 1px solid transparent;
+    border-radius: var(--emploidb-radius-lg);
+    
+    font-family: var(--emploidb-font-primary);
+    font-size: var(--emploidb-text-base);
+    font-weight: var(--emploidb-font-weight-medium);
+    line-height: 1;
+    text-align: center;
+    text-decoration: none;
+    white-space: nowrap;
+    
+    cursor: pointer;
+    user-select: none;
+    transition: var(--emploidb-transition-all);
+    
+    position: relative;
+    overflow: hidden;
+}
+
+.emploidb-btn:focus {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.emploidb-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+/* Button Variants */
+.emploidb-btn-primary {
+    background: var(--emploidb-gradient-primary);
+    color: var(--emploidb-text-inverse);
+    box-shadow: var(--emploidb-shadow-sm);
+}
+
+.emploidb-btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--emploidb-shadow-md);
+    filter: brightness(1.05);
+}
+
+.emploidb-btn-secondary {
+    background: var(--emploidb-gradient-secondary);
+    color: var(--emploidb-text-inverse);
+    box-shadow: var(--emploidb-shadow-sm);
+}
+
+.emploidb-btn-secondary:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--emploidb-shadow-md);
+    filter: brightness(1.05);
+}
+
+.emploidb-btn-outline {
+    background: transparent;
+    color: var(--emploidb-primary);
+    border-color: var(--emploidb-primary);
+}
+
+.emploidb-btn-outline:hover {
+    background: var(--emploidb-primary);
+    color: var(--emploidb-text-inverse);
+    transform: translateY(-1px);
+    box-shadow: var(--emploidb-shadow-md);
+}
+
+.emploidb-btn-ghost {
+    background: transparent;
+    color: var(--emploidb-primary);
+    border: none;
+}
+
+.emploidb-btn-ghost:hover {
+    background: var(--emploidb-primary-50);
+}
+
+/* Button Sizes */
+.emploidb-btn-sm {
+    padding: var(--emploidb-spacing-2) var(--emploidb-spacing-4);
+    font-size: var(--emploidb-text-sm);
+}
+
+.emploidb-btn-lg {
+    padding: var(--emploidb-spacing-4) var(--emploidb-spacing-8);
+    font-size: var(--emploidb-text-lg);
+}
+
+.emploidb-btn-xl {
+    padding: var(--emploidb-spacing-5) var(--emploidb-spacing-10);
+    font-size: var(--emploidb-text-xl);
+}
+
+/* =============================================================================
+   CARD SYSTEM
+   ============================================================================= */
+
+.emploidb-card {
+    background: var(--emploidb-bg-primary);
+    border: 1px solid var(--emploidb-neutral-200);
+    border-radius: var(--emploidb-radius-xl);
+    box-shadow: var(--emploidb-shadow-sm);
+    overflow: hidden;
+    transition: var(--emploidb-transition-all);
+}
+
+.emploidb-card:hover {
+    box-shadow: var(--emploidb-shadow-lg);
+    transform: translateY(-2px);
+}
+
+.emploidb-card-header {
+    padding: var(--emploidb-spacing-6);
+    border-bottom: 1px solid var(--emploidb-neutral-200);
+    background: var(--emploidb-bg-secondary);
+}
+
+.emploidb-card-body {
+    padding: var(--emploidb-spacing-6);
+}
+
+.emploidb-card-footer {
+    padding: var(--emploidb-spacing-6);
+    border-top: 1px solid var(--emploidb-neutral-200);
+    background: var(--emploidb-bg-secondary);
+}
+
+.emploidb-card-title {
+    font-size: var(--emploidb-text-xl);
+    font-weight: var(--emploidb-font-weight-bold);
+    color: var(--emploidb-text-primary);
+    margin-bottom: var(--emploidb-spacing-2);
+}
+
+.emploidb-card-subtitle {
+    font-size: var(--emploidb-text-sm);
+    color: var(--emploidb-text-muted);
+    margin-bottom: var(--emploidb-spacing-4);
+}
+
+/* =============================================================================
+   FORM SYSTEM
+   ============================================================================= */
+
+.emploidb-form-group {
+    margin-bottom: var(--emploidb-spacing-6);
+}
+
+.emploidb-form-label {
+    display: block;
+    font-size: var(--emploidb-text-sm);
+    font-weight: var(--emploidb-font-weight-medium);
+    color: var(--emploidb-text-primary);
+    margin-bottom: var(--emploidb-spacing-2);
+}
+
+.emploidb-form-control {
+    display: block;
+    width: 100%;
+    padding: var(--emploidb-spacing-3) var(--emploidb-spacing-4);
+    
+    font-family: var(--emploidb-font-primary);
+    font-size: var(--emploidb-text-base);
+    font-weight: var(--emploidb-font-weight-normal);
+    line-height: var(--emploidb-leading-normal);
+    color: var(--emploidb-text-primary);
+    
+    background: var(--emploidb-bg-primary);
+    border: 1px solid var(--emploidb-neutral-300);
+    border-radius: var(--emploidb-radius-lg);
+    
+    transition: var(--emploidb-transition-all);
+}
+
+.emploidb-form-control:focus {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+    border-color: var(--emploidb-primary);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.emploidb-form-control::placeholder {
+    color: var(--emploidb-text-muted);
+}
+
+/* Form Validation States */
+.emploidb-form-control.is-invalid {
+    border-color: var(--emploidb-error);
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+.emploidb-form-control.is-valid {
+    border-color: var(--emploidb-success);
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
+.emploidb-invalid-feedback {
+    display: block;
+    font-size: var(--emploidb-text-sm);
+    color: var(--emploidb-error);
+    margin-top: var(--emploidb-spacing-1);
+}
+
+.emploidb-valid-feedback {
+    display: block;
+    font-size: var(--emploidb-text-sm);
+    color: var(--emploidb-success);
+    margin-top: var(--emploidb-spacing-1);
+}
+
+/* =============================================================================
+   UTILITY CLASSES
+   ============================================================================= */
+
+/* Display */
+.emploidb-hidden { display: none !important; }
+.emploidb-block { display: block !important; }
+.emploidb-inline { display: inline !important; }
+.emploidb-inline-block { display: inline-block !important; }
+.emploidb-flex { display: flex !important; }
+.emploidb-inline-flex { display: inline-flex !important; }
+.emploidb-grid { display: grid !important; }
+
+/* Flexbox */
+.emploidb-flex-col { flex-direction: column !important; }
+.emploidb-flex-row { flex-direction: row !important; }
+.emploidb-items-center { align-items: center !important; }
+.emploidb-items-start { align-items: flex-start !important; }
+.emploidb-items-end { align-items: flex-end !important; }
+.emploidb-justify-center { justify-content: center !important; }
+.emploidb-justify-between { justify-content: space-between !important; }
+.emploidb-justify-around { justify-content: space-around !important; }
+.emploidb-justify-start { justify-content: flex-start !important; }
+.emploidb-justify-end { justify-content: flex-end !important; }
+
+/* Spacing */
+.emploidb-m-0 { margin: 0 !important; }
+.emploidb-m-1 { margin: var(--emploidb-spacing-1) !important; }
+.emploidb-m-2 { margin: var(--emploidb-spacing-2) !important; }
+.emploidb-m-3 { margin: var(--emploidb-spacing-3) !important; }
+.emploidb-m-4 { margin: var(--emploidb-spacing-4) !important; }
+.emploidb-m-5 { margin: var(--emploidb-spacing-5) !important; }
+.emploidb-m-6 { margin: var(--emploidb-spacing-6) !important; }
+.emploidb-m-8 { margin: var(--emploidb-spacing-8) !important; }
+
+.emploidb-p-0 { padding: 0 !important; }
+.emploidb-p-1 { padding: var(--emploidb-spacing-1) !important; }
+.emploidb-p-2 { padding: var(--emploidb-spacing-2) !important; }
+.emploidb-p-3 { padding: var(--emploidb-spacing-3) !important; }
+.emploidb-p-4 { padding: var(--emploidb-spacing-4) !important; }
+.emploidb-p-5 { padding: var(--emploidb-spacing-5) !important; }
+.emploidb-p-6 { padding: var(--emploidb-spacing-6) !important; }
+.emploidb-p-8 { padding: var(--emploidb-spacing-8) !important; }
+
+/* Text */
+.emploidb-text-xs { font-size: var(--emploidb-text-xs) !important; }
+.emploidb-text-sm { font-size: var(--emploidb-text-sm) !important; }
+.emploidb-text-base { font-size: var(--emploidb-text-base) !important; }
+.emploidb-text-lg { font-size: var(--emploidb-text-lg) !important; }
+.emploidb-text-xl { font-size: var(--emploidb-text-xl) !important; }
+.emploidb-text-2xl { font-size: var(--emploidb-text-2xl) !important; }
+.emploidb-text-3xl { font-size: var(--emploidb-text-3xl) !important; }
+.emploidb-text-4xl { font-size: var(--emploidb-text-4xl) !important; }
+
+.emploidb-font-light { font-weight: var(--emploidb-font-weight-light) !important; }
+.emploidb-font-normal { font-weight: var(--emploidb-font-weight-normal) !important; }
+.emploidb-font-medium { font-weight: var(--emploidb-font-weight-medium) !important; }
+.emploidb-font-semibold { font-weight: var(--emploidb-font-weight-semibold) !important; }
+.emploidb-font-bold { font-weight: var(--emploidb-font-weight-bold) !important; }
+.emploidb-font-black { font-weight: var(--emploidb-font-weight-black) !important; }
+
+.emploidb-text-left { text-align: left !important; }
+.emploidb-text-center { text-align: center !important; }
+.emploidb-text-right { text-align: right !important; }
+
+.emploidb-text-primary { color: var(--emploidb-text-primary) !important; }
+.emploidb-text-secondary { color: var(--emploidb-text-secondary) !important; }
+.emploidb-text-muted { color: var(--emploidb-text-muted) !important; }
+.emploidb-text-white { color: var(--emploidb-text-inverse) !important; }
+
+/* Colors */
+.emploidb-bg-primary { background-color: var(--emploidb-bg-primary) !important; }
+.emploidb-bg-secondary { background-color: var(--emploidb-bg-secondary) !important; }
+.emploidb-bg-accent { background-color: var(--emploidb-bg-accent) !important; }
+
+.emploidb-text-brand-primary { color: var(--emploidb-primary) !important; }
+.emploidb-text-brand-secondary { color: var(--emploidb-secondary) !important; }
+.emploidb-text-success { color: var(--emploidb-success) !important; }
+.emploidb-text-warning { color: var(--emploidb-warning) !important; }
+.emploidb-text-error { color: var(--emploidb-error) !important; }
+.emploidb-text-info { color: var(--emploidb-info) !important; }
+
+/* Border Radius */
+.emploidb-rounded-none { border-radius: var(--emploidb-radius-none) !important; }
+.emploidb-rounded-sm { border-radius: var(--emploidb-radius-sm) !important; }
+.emploidb-rounded { border-radius: var(--emploidb-radius) !important; }
+.emploidb-rounded-md { border-radius: var(--emploidb-radius-md) !important; }
+.emploidb-rounded-lg { border-radius: var(--emploidb-radius-lg) !important; }
+.emploidb-rounded-xl { border-radius: var(--emploidb-radius-xl) !important; }
+.emploidb-rounded-2xl { border-radius: var(--emploidb-radius-2xl) !important; }
+.emploidb-rounded-3xl { border-radius: var(--emploidb-radius-3xl) !important; }
+.emploidb-rounded-full { border-radius: var(--emploidb-radius-full) !important; }
+
+/* Shadow */
+.emploidb-shadow-none { box-shadow: none !important; }
+.emploidb-shadow-sm { box-shadow: var(--emploidb-shadow-sm) !important; }
+.emploidb-shadow { box-shadow: var(--emploidb-shadow) !important; }
+.emploidb-shadow-md { box-shadow: var(--emploidb-shadow-md) !important; }
+.emploidb-shadow-lg { box-shadow: var(--emploidb-shadow-lg) !important; }
+.emploidb-shadow-xl { box-shadow: var(--emploidb-shadow-xl) !important; }
+.emploidb-shadow-2xl { box-shadow: var(--emploidb-shadow-2xl) !important; }
+
+/* =============================================================================
+   RESPONSIVE UTILITIES
+   ============================================================================= */
+
+@media (min-width: 576px) {
+    .emploidb-sm\:block { display: block !important; }
+    .emploidb-sm\:hidden { display: none !important; }
+    .emploidb-sm\:flex { display: flex !important; }
+}
+
+@media (min-width: 768px) {
+    .emploidb-md\:block { display: block !important; }
+    .emploidb-md\:hidden { display: none !important; }
+    .emploidb-md\:flex { display: flex !important; }
+}
+
+@media (min-width: 992px) {
+    .emploidb-lg\:block { display: block !important; }
+    .emploidb-lg\:hidden { display: none !important; }
+    .emploidb-lg\:flex { display: flex !important; }
+}
+
+@media (min-width: 1200px) {
+    .emploidb-xl\:block { display: block !important; }
+    .emploidb-xl\:hidden { display: none !important; }
+    .emploidb-xl\:flex { display: flex !important; }
+}
+
+/* =============================================================================
+   ANIMATION UTILITIES
+   ============================================================================= */
+
+.emploidb-transition-all { transition: var(--emploidb-transition-all) !important; }
+.emploidb-transition-fast { transition: var(--emploidb-transition-fast) !important; }
+.emploidb-transition-normal { transition: var(--emploidb-transition-normal) !important; }
+.emploidb-transition-slow { transition: var(--emploidb-transition-slow) !important; }
+
+.emploidb-hover-scale:hover { transform: scale(1.05); }
+.emploidb-hover-lift:hover { transform: translateY(-2px); }
+
+/* Fade animations */
+@keyframes emploidb-fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes emploidb-fade-in-up {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes emploidb-fade-in-down {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.emploidb-animate-fade-in {
+    animation: emploidb-fade-in 0.6s ease forwards;
+}
+
+.emploidb-animate-fade-in-up {
+    animation: emploidb-fade-in-up 0.6s ease forwards;
+}
+
+.emploidb-animate-fade-in-down {
+    animation: emploidb-fade-in-down 0.6s ease forwards;
+}
+
+/* =============================================================================
+   COMPONENT SPECIFIC STYLES
+   ============================================================================= */
+
+/* Professional Navbar */
+.emploidb-navbar {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--emploidb-neutral-200);
+    box-shadow: var(--emploidb-shadow-sm);
+    transition: var(--emploidb-transition-all);
+}
+
+.emploidb-navbar-brand {
+    font-family: var(--emploidb-font-display);
+    font-size: var(--emploidb-text-2xl);
+    font-weight: var(--emploidb-font-weight-black);
+    background: var(--emploidb-gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-decoration: none;
+}
+
+.emploidb-nav-link {
+    font-weight: var(--emploidb-font-weight-medium);
+    color: var(--emploidb-text-primary);
+    padding: var(--emploidb-spacing-3) var(--emploidb-spacing-4);
+    border-radius: var(--emploidb-radius-lg);
+    transition: var(--emploidb-transition-all);
+    text-decoration: none;
+}
+
+.emploidb-nav-link:hover {
+    color: var(--emploidb-primary);
+    background: var(--emploidb-primary-50);
+    text-decoration: none;
+}
+
+.emploidb-nav-link.active {
+    color: var(--emploidb-primary);
+    background: var(--emploidb-primary-50);
+}
+
+/* Professional Hero Section */
+.emploidb-hero {
+    background: var(--emploidb-gradient-primary);
+    color: var(--emploidb-text-inverse);
+    position: relative;
+    overflow: hidden;
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+}
+
+.emploidb-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+    opacity: 0.3;
+}
+
+/* Professional Job Cards */
+.emploidb-job-card {
+    background: var(--emploidb-bg-primary);
+    border: 1px solid var(--emploidb-neutral-200);
+    border-radius: var(--emploidb-radius-xl);
+    box-shadow: var(--emploidb-shadow-sm);
+    padding: var(--emploidb-spacing-6);
+    transition: var(--emploidb-transition-all);
+    position: relative;
+    overflow: hidden;
+}
+
+.emploidb-job-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--emploidb-gradient-primary);
+    transform: scaleY(0);
+    transition: var(--emploidb-transition-all);
+}
+
+.emploidb-job-card:hover {
+    box-shadow: var(--emploidb-shadow-lg);
+    transform: translateY(-4px);
+}
+
+.emploidb-job-card:hover::before {
+    transform: scaleY(1);
+}
+
+/* Professional Statistics Cards */
+.emploidb-stat-card {
+    background: var(--emploidb-bg-primary);
+    border: 1px solid var(--emploidb-neutral-200);
+    border-radius: var(--emploidb-radius-xl);
+    box-shadow: var(--emploidb-shadow-sm);
+    padding: var(--emploidb-spacing-6);
+    text-align: center;
+    transition: var(--emploidb-transition-all);
+    position: relative;
+    overflow: hidden;
+}
+
+.emploidb-stat-card:hover {
+    box-shadow: var(--emploidb-shadow-lg);
+    transform: translateY(-4px);
+}
+
+.emploidb-stat-number {
+    font-size: var(--emploidb-text-4xl);
+    font-weight: var(--emploidb-font-weight-black);
+    color: var(--emploidb-primary);
+    line-height: 1;
+    margin-bottom: var(--emploidb-spacing-2);
+}
+
+.emploidb-stat-label {
+    font-size: var(--emploidb-text-sm);
+    font-weight: var(--emploidb-font-weight-medium);
+    color: var(--emploidb-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* =============================================================================
+   DARK MODE SUPPORT
+   ============================================================================= */
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --emploidb-bg-primary: #0f172a;
+        --emploidb-bg-secondary: #1e293b;
+        --emploidb-bg-accent: #334155;
+        
+        --emploidb-text-primary: #f8fafc;
+        --emploidb-text-secondary: #cbd5e1;
+        --emploidb-text-muted: #64748b;
+        
+        --emploidb-neutral-200: #334155;
+        --emploidb-neutral-300: #475569;
+    }
+    
+    .emploidb-card,
+    .emploidb-job-card,
+    .emploidb-stat-card {
+        background: var(--emploidb-bg-secondary);
+        border-color: var(--emploidb-neutral-300);
+    }
+    
+    .emploidb-form-control {
+        background: var(--emploidb-bg-secondary);
+        border-color: var(--emploidb-neutral-300);
+        color: var(--emploidb-text-primary);
+    }
+}
+
+/* =============================================================================
+   PRINT STYLES
+   ============================================================================= */
+
+@media print {
+    .emploidb-no-print { display: none !important; }
+    
+    .emploidb-card,
+    .emploidb-job-card {
+        box-shadow: none !important;
+        border: 1px solid #ccc !important;
+    }
+    
+    .emploidb-btn {
+        color: #000 !important;
+        background: transparent !important;
+        border: 1px solid #000 !important;
+    }
+}
+
+/* =============================================================================
+   ACCESSIBILITY IMPROVEMENTS
+   ============================================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* Focus visible for better keyboard navigation */
+.emploidb-btn:focus-visible,
+.emploidb-form-control:focus-visible,
+.emploidb-nav-link:focus-visible {
+    outline: 2px solid var(--emploidb-primary);
+    outline-offset: 2px;
+}
+
+/* Screen reader only content */
+.emploidb-sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* =============================================================================
+   STANDARDIZED ADMIN COMPONENTS
+   ============================================================================= */
+
+/* Admin Layout Components */
+.emploidb-admin-layout {
+    min-height: 100vh;
+    display: flex;
+    font-family: var(--emploidb-font-primary);
+    background: var(--emploidb-bg-secondary);
+}
+
+.emploidb-admin-sidebar {
+    width: 280px;
+    background: linear-gradient(135deg, var(--emploidb-primary) 0%, var(--emploidb-primary-700) 100%);
+    color: var(--emploidb-text-inverse);
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    overflow-y: auto;
+    z-index: 1000;
+    box-shadow: var(--emploidb-shadow-lg);
+}
+
+.emploidb-admin-content {
+    flex: 1;
+    margin-left: 280px;
+    padding: var(--emploidb-spacing-6);
+}
+
+.emploidb-sidebar-brand {
+    padding: var(--emploidb-spacing-6);
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.emploidb-sidebar-brand h4 {
+    color: var(--emploidb-text-inverse);
+    font-weight: var(--emploidb-font-weight-bold);
+    margin: 0;
+}
+
+.emploidb-nav-link {
+    color: rgba(255, 255, 255, 0.8);
+    padding: var(--emploidb-spacing-3) var(--emploidb-spacing-6);
+    margin: var(--emploidb-spacing-1) var(--emploidb-spacing-4);
+    border-radius: var(--emploidb-radius-lg);
+    transition: var(--emploidb-transition-all);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+}
+
+.emploidb-nav-link:hover,
+.emploidb-nav-link.emploidb-active {
+    background: rgba(255, 255, 255, 0.15);
+    color: var(--emploidb-text-inverse);
+    transform: translateX(5px);
+}
+
+.emploidb-nav-link i {
+    width: 20px;
+    margin-right: var(--emploidb-spacing-3);
+    font-size: var(--emploidb-text-base);
+}
+
+.emploidb-nav-section-header {
+    font-size: var(--emploidb-text-xs);
+    letter-spacing: 1px;
+    opacity: 0.7;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding-bottom: var(--emploidb-spacing-2);
+    margin: var(--emploidb-spacing-4) var(--emploidb-spacing-6) var(--emploidb-spacing-2);
+    text-transform: uppercase;
+    font-weight: var(--emploidb-font-weight-semibold);
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Content Components */
+.emploidb-content-card {
+    background: var(--emploidb-bg-primary);
+    border-radius: var(--emploidb-radius-xl);
+    padding: var(--emploidb-spacing-6);
+    box-shadow: var(--emploidb-shadow-sm);
+    border: 1px solid var(--emploidb-neutral-200);
+    margin-bottom: var(--emploidb-spacing-6);
+}
+
+.emploidb-page-header {
+    background: var(--emploidb-bg-primary);
+    padding: var(--emploidb-spacing-6);
+    border-radius: var(--emploidb-radius-xl);
+    box-shadow: var(--emploidb-shadow-sm);
+    border: 1px solid var(--emploidb-neutral-200);
+    margin-bottom: var(--emploidb-spacing-6);
+}
+
+.emploidb-page-title {
+    color: var(--emploidb-primary);
+    font-weight: var(--emploidb-font-weight-black);
+    margin-bottom: var(--emploidb-spacing-2);
+}
+
+.emploidb-page-subtitle {
+    color: var(--emploidb-text-secondary);
+    margin: 0;
+}
+
+/* Statistics Components */
+.emploidb-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--emploidb-spacing-4);
+    margin-bottom: var(--emploidb-spacing-6);
+}
+
+.emploidb-stat-card {
+    background: var(--emploidb-bg-primary);
+    border-radius: var(--emploidb-radius-xl);
+    padding: var(--emploidb-spacing-6);
+    box-shadow: var(--emploidb-shadow-sm);
+    border: 1px solid var(--emploidb-neutral-200);
+    text-align: center;
+    transition: var(--emploidb-transition-all);
+    position: relative;
+    overflow: hidden;
+}
+
+.emploidb-stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--emploidb-primary);
+}
+
+.emploidb-stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--emploidb-shadow-lg);
+}
+
+.emploidb-stat-number {
+    font-size: var(--emploidb-text-3xl);
+    font-weight: var(--emploidb-font-weight-black);
+    color: var(--emploidb-primary);
+    margin-bottom: var(--emploidb-spacing-2);
+}
+
+.emploidb-stat-label {
+    color: var(--emploidb-text-secondary);
+    font-weight: var(--emploidb-font-weight-medium);
+    text-transform: uppercase;
+    font-size: var(--emploidb-text-sm);
+    letter-spacing: 0.5px;
+}
+
+/* Action Buttons */
+.emploidb-action-btn {
+    padding: var(--emploidb-spacing-2) var(--emploidb-spacing-3);
+    border: none;
+    border-radius: var(--emploidb-radius-md);
+    font-size: var(--emploidb-text-sm);
+    font-weight: var(--emploidb-font-weight-medium);
+    transition: var(--emploidb-transition-all);
+    cursor: pointer;
+    margin: 0 var(--emploidb-spacing-1);
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+}
+
+.emploidb-action-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--emploidb-shadow-md);
+}
+
+.emploidb-action-btn.emploidb-primary {
+    background: var(--emploidb-primary);
+    color: var(--emploidb-text-inverse);
+}
+
+.emploidb-action-btn.emploidb-success {
+    background: var(--emploidb-success);
+    color: var(--emploidb-text-inverse);
+}
+
+.emploidb-action-btn.emploidb-warning {
+    background: var(--emploidb-warning);
+    color: var(--emploidb-text-inverse);
+}
+
+.emploidb-action-btn.emploidb-danger {
+    background: var(--emploidb-error);
+    color: var(--emploidb-text-inverse);
+}
+
+.emploidb-action-btn.emploidb-info {
+    background: var(--emploidb-info);
+    color: var(--emploidb-text-inverse);
+}
+
+/* Status Badges */
+.emploidb-status-badge {
+    padding: var(--emploidb-spacing-1) var(--emploidb-spacing-3);
+    border-radius: var(--emploidb-radius-full);
+    font-size: var(--emploidb-text-xs);
+    font-weight: var(--emploidb-font-weight-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.emploidb-status-badge.emploidb-active {
+    background: var(--emploidb-success-light);
+    color: var(--emploidb-success-dark);
+}
+
+.emploidb-status-badge.emploidb-suspended {
+    background: var(--emploidb-error-light);
+    color: var(--emploidb-error-dark);
+}
+
+.emploidb-status-badge.emploidb-pending {
+    background: var(--emploidb-warning-light);
+    color: var(--emploidb-warning-dark);
+}
+
+.emploidb-status-badge.emploidb-verified {
+    background: var(--emploidb-info-light);
+    color: var(--emploidb-info-dark);
+}
+
+/* Data Cards */
+.emploidb-data-card {
+    background: var(--emploidb-bg-primary);
+    border-radius: var(--emploidb-radius-xl);
+    padding: var(--emploidb-spacing-6);
+    margin-bottom: var(--emploidb-spacing-4);
+    box-shadow: var(--emploidb-shadow-sm);
+    border: 1px solid var(--emploidb-neutral-200);
+    transition: var(--emploidb-transition-all);
+}
+
+.emploidb-data-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--emploidb-shadow-lg);
+    border-color: var(--emploidb-primary-200);
+}
+
+.emploidb-data-title {
+    color: var(--emploidb-primary);
+    font-weight: var(--emploidb-font-weight-semibold);
+    font-size: var(--emploidb-text-lg);
+    margin-bottom: var(--emploidb-spacing-1);
+}
+
+.emploidb-data-subtitle {
+    color: var(--emploidb-text-secondary);
+    font-weight: var(--emploidb-font-weight-medium);
+    margin-bottom: var(--emploidb-spacing-3);
+}
+
+.emploidb-data-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--emploidb-spacing-4);
+    margin-bottom: var(--emploidb-spacing-4);
+    font-size: var(--emploidb-text-sm);
+    color: var(--emploidb-text-secondary);
+}
+
+.emploidb-data-meta i {
+    color: var(--emploidb-primary);
+    margin-right: var(--emploidb-spacing-1);
+}
+
+/* Information Grid */
+.emploidb-info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--emploidb-spacing-6);
+}
+
+.emploidb-info-item {
+    display: flex;
+    align-items: center;
+    padding: var(--emploidb-spacing-3) 0;
+    border-bottom: 1px solid var(--emploidb-neutral-200);
+}
+
+.emploidb-info-item:last-child {
+    border-bottom: none;
+}
+
+.emploidb-info-item i {
+    color: var(--emploidb-primary);
+    width: 24px;
+    margin-right: var(--emploidb-spacing-3);
+}
+
+.emploidb-info-label {
+    color: var(--emploidb-text-secondary);
+    font-weight: var(--emploidb-font-weight-medium);
+    width: 120px;
+    flex-shrink: 0;
+}
+
+.emploidb-info-value {
+    color: var(--emploidb-text-primary);
+    font-weight: var(--emploidb-font-weight-medium);
+}
+
+/* Responsive Design */
+@media (max-width: 991.98px) {
+    .emploidb-admin-sidebar { 
+        transform: translateX(-100%); 
+    }
+    .emploidb-admin-sidebar.emploidb-show { 
+        transform: translateX(0); 
+    }
+    .emploidb-admin-content { 
+        margin-left: 0; 
+    }
+    .emploidb-stats-grid { 
+        grid-template-columns: repeat(2, 1fr); 
+    }
+    .emploidb-info-grid { 
+        grid-template-columns: 1fr; 
+    }
+}
+
+@media (max-width: 575.98px) {
+    .emploidb-stats-grid { 
+        grid-template-columns: 1fr; 
+    }
+    .emploidb-data-meta { 
+        flex-direction: column; 
+        gap: var(--emploidb-spacing-2); 
+    }
+}

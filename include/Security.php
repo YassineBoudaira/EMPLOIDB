@@ -75,19 +75,24 @@ class Security {
      * Validate file upload
      */
     public static function validateFileUpload($file, $allowedTypes = ['jpg', 'jpeg', 'png', 'gif'], $maxSize = 5242880) {
+        $result = ['valid' => false, 'error' => ''];
+        
         if (!isset($file['error']) || $file['error'] !== UPLOAD_ERR_OK) {
-            return false;
+            $result['error'] = 'File upload error';
+            return $result;
         }
         
         if ($file['size'] > $maxSize) {
-            return false;
+            $result['error'] = 'File too large';
+            return $result;
         }
         
         $fileInfo = pathinfo($file['name']);
         $extension = strtolower($fileInfo['extension']);
         
         if (!in_array($extension, $allowedTypes)) {
-            return false;
+            $result['error'] = 'Invalid file type';
+            return $result;
         }
         
         // Check MIME type
@@ -103,18 +108,21 @@ class Security {
         ];
         
         if (!isset($allowedMimes[$extension]) || $allowedMimes[$extension] !== $mimeType) {
-            return false;
+            $result['error'] = 'Invalid MIME type';
+            return $result;
         }
         
-        return true;
+        $result['valid'] = true;
+        return $result;
     }
     
     /**
      * Generate secure filename
      */
-    public static function generateSecureFilename($originalName) {
+    public static function generateSecureFilename($originalName, $prefix = '') {
         $extension = pathinfo($originalName, PATHINFO_EXTENSION);
-        return uniqid() . '_' . time() . '.' . $extension;
+        $filename = uniqid() . '_' . time() . '.' . $extension;
+        return $prefix ? $prefix . $filename : $filename;
     }
     
     /**

@@ -153,6 +153,26 @@ include  'connexion.php'
                 <li><a href="/user/add.php">Ajouter un utilisateur</a></li>
               </ul>
             </li>
+            
+                         <li class="nav-parent">
+               <a href="#"><i class="fa fa-ad"></i> <span>Publicités</span></a>
+               <ul class="children">
+                 <li><a href="/admin/manage_ads.php">Gérer les Publicités</a></li>
+                 <li><a href="/admin/ads_analytics.php">Analytics Publicités</a></li>
+                 <li><a href="/admin/manage_campaigns.php">Campagnes</a></li>
+                 <li><a href="/admin/ads_targeting.php">Ciblage</a></li>
+               </ul>
+             </li>
+             
+             <li class="nav-parent">
+               <a href="#"><i class="fa fa-users"></i> <span>Annonceurs</span></a>
+               <ul class="children">
+                 <li><a href="/admin/manage_advertisers.php">Gérer les Annonceurs</a></li>
+                 <li><a href="/admin/advertiser_analytics.php">Analytics Annonceurs</a></li>
+                 <li><a href="/admin/advertiser_payments.php">Paiements</a></li>
+                 <li><a href="/admin/ad_approvals.php">Approbations</a></li>
+               </ul>
+             </li>
             <?php  endif;?>
 
           </ul>

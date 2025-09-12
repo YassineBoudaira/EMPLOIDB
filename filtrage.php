@@ -14,14 +14,15 @@ $keyword = trim($_GET['keyword'] ?? '');
 $domaine_id = intval($_GET['idd'] ?? 0);
 $ville_id = intval($_GET['idv'] ?? 0);
 
-// Build search conditions
+// Build search conditions for both local and aggregated jobs
 $conditions = [];
 $params = [];
 $search_title = "Résultats de recherche";
 
 if (!empty($keyword)) {
-    $conditions[] = "(titre LIKE ? OR description LIKE ? OR entreprise LIKE ?)";
+    $conditions[] = "(titre LIKE ? OR description LIKE ? OR entreprise LIKE ? OR company_name LIKE ?)";
     $keyword_param = "%$keyword%";
+    $params[] = $keyword_param;
     $params[] = $keyword_param;
     $params[] = $keyword_param;
     $params[] = $keyword_param;
@@ -38,21 +39,72 @@ if ($domaine_id > 0) {
 }
 
 if ($ville_id > 0) {
-    $conditions[] = "ville_id = ?";
+    $conditions[] = "(ville_id = ? OR location LIKE ?)";
     $params[] = $ville_id;
     $ville_data = $db->fetch("SELECT nom FROM villes WHERE id = ?", [$ville_id]);
     if ($ville_data) {
+        $params[] = "%" . $ville_data['nom'] . "%";
         $search_title .= " à '" . $ville_data['nom'] . "'";
     }
 }
 
-// If no search criteria provided, show all results
+// Build unified query for both local and aggregated jobs
 if (empty($conditions)) {
-    $sql = "SELECT * FROM annonces ORDER BY id DESC";
+    $sql = "
+        SELECT 
+            'local' as source_type,
+            id, titre as title, description, entreprise as company_name, 
+            ville_id, domaine_id, date_publication as posted_date,
+            salary_min, salary_max, job_type, experience_level, 
+            remote_work, featured, urgent, views_count, applications_count,
+            NULL as external_url, NULL as source_name
+        FROM annonces 
+        WHERE status = 'active'
+        
+        UNION ALL
+        
+        SELECT 
+            'aggregated' as source_type,
+            id, title, description, company_name,
+            NULL as ville_id, NULL as domaine_id, posted_date,
+            salary_min, salary_max, job_type, experience_level,
+            remote_work, 0 as featured, 0 as urgent, 0 as views_count, 0 as applications_count,
+            external_url, js.name as source_name
+        FROM aggregated_jobs aj
+        JOIN job_sources js ON aj.source_id = js.id
+        WHERE aj.status = 'active'
+        
+        ORDER BY featured DESC, urgent DESC, posted_date DESC
+    ";
     $search_title = "Toutes les offres d'emploi";
 } else {
-    // Build the SQL query
-    $sql = "SELECT * FROM annonces WHERE " . implode(' AND ', $conditions) . " ORDER BY id DESC";
+    $where_clause = implode(' AND ', $conditions);
+    $sql = "
+        SELECT 
+            'local' as source_type,
+            id, titre as title, description, entreprise as company_name, 
+            ville_id, domaine_id, date_publication as posted_date,
+            salary_min, salary_max, job_type, experience_level, 
+            remote_work, featured, urgent, views_count, applications_count,
+            NULL as external_url, NULL as source_name
+        FROM annonces 
+        WHERE status = 'active' AND $where_clause
+        
+        UNION ALL
+        
+        SELECT 
+            'aggregated' as source_type,
+            id, title, description, company_name,
+            NULL as ville_id, NULL as domaine_id, posted_date,
+            salary_min, salary_max, job_type, experience_level,
+            remote_work, 0 as featured, 0 as urgent, 0 as views_count, 0 as applications_count,
+            external_url, js.name as source_name
+        FROM aggregated_jobs aj
+        JOIN job_sources js ON aj.source_id = js.id
+        WHERE aj.status = 'active' AND $where_clause
+        
+        ORDER BY featured DESC, urgent DESC, posted_date DESC
+    ";
 }
 ?>
 
@@ -155,35 +207,119 @@ if (empty($conditions)) {
                                     echo '<p class="text-center mb-4"><strong>' . count($annonces) . '</strong> offre(s) trouvée(s)</p>';
                                     
                                     foreach($annonces as $data):
-                                        $profile = $data['profile_id'];
-                                        $data1 = $db->fetch("SELECT * FROM profiles WHERE id = ?", [$profile]);
+                                        // Handle both local and aggregated jobs
+                                        if ($data['source_type'] === 'local') {
+                                            $profile = $data['profile_id'] ?? null;
+                                            $data1 = $profile ? $db->fetch("SELECT * FROM profiles WHERE id = ?", [$profile]) : null;
 
-                                        $contrat = $data['contrat_id'];
-                                        $data2 = $db->fetch("SELECT * FROM contrats WHERE id = ?", [$contrat]);
+                                            $contrat = $data['contrat_id'] ?? null;
+                                            $data2 = $contrat ? $db->fetch("SELECT * FROM contrats WHERE id = ?", [$contrat]) : null;
 
-                                        $ville = $data['ville_id'];
-                                        $data3 = $db->fetch("SELECT * FROM villes WHERE id = ?", [$ville]);
+                                            $ville = $data['ville_id'];
+                                            $data3 = $ville ? $db->fetch("SELECT * FROM villes WHERE id = ?", [$ville]) : null;
 
-                                        $domaine = $data['domaine_id'];
-                                        $data4 = $db->fetch("SELECT * FROM domaines WHERE id = ?", [$domaine]);
+                                            $domaine = $data['domaine_id'];
+                                            $data4 = $domaine ? $db->fetch("SELECT * FROM domaines WHERE id = ?", [$domaine]) : null;
+                                        } else {
+                                            // Aggregated job - use direct data
+                                            $data1 = null;
+                                            $data2 = null;
+                                            $data3 = ['nom' => $data['location'] ?? 'Non spécifiée'];
+                                            $data4 = ['nom' => 'Autre'];
+                                        }
                             ?>
-                            <div class="job-item p-4 mb-4">
-                                <div class="row g-4">
-                                    <div class="col-sm-12 col-md-8 d-flex align-items-center">
-                                        <img class="flex-shrink-0 me-3" src="img/com-logo-1.jpg" alt="">
-                                        <div class="text-start ps-4">
-                                            <h5 class="mb-3"><?= htmlspecialchars($data['titre']) ?></h5>
-                                            <span class="text-truncate me-3"><i class="fa fa-map-marker-alt text-primary me-2"></i><?= htmlspecialchars($data3['nom']) ?></span>
-                                            <span class="text-truncate me-3"><i class="far fa-clock text-primary me-2"></i><?= htmlspecialchars($data1['nom']) ?></span>
-                                            <span class="text-truncate me-0"><i class="far fa-money-bill-alt text-primary me-2"></i><?= htmlspecialchars($data2['nom']) ?></span>
+                            <div class="job-card bg-white rounded shadow-sm border-0 mb-4 wow fadeInUp" data-wow-delay="0.1s">
+                                <div class="card-body p-4">
+                                    <div class="row align-items-center">
+                                        <!-- Job Image -->
+                                        <div class="col-md-2 col-sm-12 mb-3 mb-md-0">
+                                            <div class="job-image-container">
+                                                <img class="img-fluid rounded" 
+                                                     src="upload/<?= htmlspecialchars($data['image'] ?: 'default-job.jpg') ?>" 
+                                                     alt="<?= htmlspecialchars($data['titre']) ?>"
+                                                     style="width: 120px; height: 80px; object-fit: cover;">
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center">
-                                        <div class="d-flex mb-3">
-                                            <a class="btn btn-light btn-square me-3" href=""><i class="far fa-heart text-primary"></i></a>
-                                            <a class="btn btn-primary" href="annoncedetaile.php?ida=<?= $data['id'] ?>">Afficher les détails</a>
+                                        
+                                        <!-- Job Content -->
+                                        <div class="col-md-7 col-sm-12">
+                                            <!-- Job Title -->
+                                            <div class="d-flex align-items-center mb-2">
+                                                <h5 class="mb-0 me-3">
+                                                    <i class="fas fa-user-tie text-primary me-2"></i>
+                                                    <?= htmlspecialchars($data['title']) ?>
+                                                </h5>
+                                                <?php if ($data['source_type'] === 'aggregated'): ?>
+                                                <span class="badge bg-info">
+                                                    <i class="fas fa-external-link-alt"></i> <?= htmlspecialchars($data['source_name']) ?>
+                                                </span>
+                                                <?php endif; ?>
+                                            </div>
+                                            
+                                            <!-- Job Description -->
+                                            <p class="text-muted mb-3">
+                                                <?= htmlspecialchars(substr($data['description'], 0, 150)) ?>...
+                                            </p>
+                                            
+                                            <!-- Job Details -->
+                                            <div class="d-flex flex-wrap gap-3">
+                                                <span class="text-muted small">
+                                                    <i class="fas fa-map-marker-alt text-primary me-1"></i>
+                                                    Location: <?= htmlspecialchars($data3['nom'] ?: 'Non spécifiée') ?>
+                                                </span>
+                                                <span class="text-muted small">
+                                                    <i class="fas fa-clock text-primary me-1"></i>
+                                                    Contrat: <?= htmlspecialchars($data2['nom'] ?: 'Non spécifié') ?>
+                                                </span>
+                                                <span class="text-muted small">
+                                                    <i class="fas fa-money-bill-alt text-primary me-1"></i>
+                                                    Salaire: $123 - $456
+                                                </span>
+                                                <span class="text-muted small">
+                                                    <i class="fas fa-user text-primary me-1"></i>
+                                                    Domaine: <?= htmlspecialchars($data4['nom']) ?>
+                                                </span>
+                                            </div>
                                         </div>
-                                        <small class="text-truncate"><i class="far fa-calendar-alt text-primary me-2"></i> Date: <?= htmlspecialchars($data['date_a']) ?></small>
+                                        
+                                        <!-- Action Buttons -->
+                                        <div class="col-md-3 col-sm-12 text-end">
+                                            <div class="d-flex flex-column gap-2">
+                                                <!-- Save Button -->
+                                                <a href="login.php" class="btn btn-outline-primary btn-sm">
+                                                    <i class="far fa-heart"></i>
+                                                    Se connecter
+                                                </a>
+                                                
+                                                <!-- View Details Button -->
+                                                <?php if ($data['source_type'] === 'local'): ?>
+                                                <a href="annoncedetaile.php?ida=<?= $data['id'] ?>" 
+                                                   class="btn btn-primary btn-sm">
+                                                    Afficher les details
+                                                </a>
+                                                <?php else: ?>
+                                                <a href="<?= htmlspecialchars($data['external_url']) ?>" 
+                                                   class="btn btn-primary btn-sm" target="_blank">
+                                                    <i class="fas fa-external-link-alt me-1"></i>
+                                                    Voir sur <?= htmlspecialchars($data['source_name']) ?>
+                                                </a>
+                                                <?php endif; ?>
+                                            </div>
+                                            
+                                            <!-- Date Information -->
+                                            <div class="mt-3">
+                                                <small class="text-muted d-block">
+                                                    <i class="fas fa-calendar text-primary me-1"></i>
+                                                    Publié: <?= date('Y-m-d', strtotime($data['posted_date'])) ?>
+                                                </small>
+                                                <?php if ($data['source_type'] === 'local' && isset($data['date_fin']) && $data['date_fin']): ?>
+                                                <small class="text-muted d-block">
+                                                    <i class="fas fa-calendar text-primary me-1"></i>
+                                                    Date Fin: <?= date('Y-m-d', strtotime($data['date_fin'])) ?>
+                                                </small>
+                                                <?php endif; ?>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -208,3 +344,115 @@ if (empty($conditions)) {
         <!-- Jobs End -->
 
 <?php include 'frontoffice/include/footer2.php'; ?>
+
+    <!-- Job Card Styles -->
+    <style>
+    /* Job Cards - Matching the Image Design */
+    .job-card {
+        transition: all 0.3s ease;
+        border: 1px solid #e0e0e0 !important;
+        border-radius: 12px !important;
+        overflow: hidden;
+    }
+
+    .job-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1) !important;
+    }
+
+    .job-image-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #f8f9fa;
+        border-radius: 8px;
+        padding: 5px;
+    }
+
+    .job-image-container img {
+        border-radius: 6px;
+        border: 1px solid #e0e0e0;
+    }
+
+    /* Job Title Styling */
+    .job-card h5 {
+        font-weight: 600;
+        color: #2c3e50;
+        font-size: 1.1rem;
+    }
+
+    /* Job Details Styling */
+    .job-card .text-muted.small {
+        font-size: 0.85rem;
+        color: #6c757d !important;
+    }
+
+    .job-card .text-muted.small i {
+        width: 16px;
+        text-align: center;
+    }
+
+    /* Action Buttons Styling */
+    .job-card .btn-outline-primary {
+        border-color: #007bff;
+        color: #007bff;
+        font-size: 0.85rem;
+        padding: 0.375rem 0.75rem;
+    }
+
+    .job-card .btn-outline-primary:hover {
+        background-color: #007bff;
+        border-color: #007bff;
+        color: white;
+    }
+
+    .job-card .btn-primary {
+        background: linear-gradient(135deg, #259dab, #2b9bff);
+        border: none;
+        font-size: 0.85rem;
+        padding: 0.375rem 0.75rem;
+        border-radius: 6px;
+    }
+
+    .job-card .btn-primary:hover {
+        background: linear-gradient(135deg, #1e7e8a, #1e7e8a);
+        transform: translateY(-1px);
+    }
+
+    /* Date Information Styling */
+    .job-card small.text-muted {
+        font-size: 0.75rem;
+        color: #6c757d !important;
+    }
+
+    .job-card small.text-muted i {
+        width: 14px;
+        text-align: center;
+    }
+
+    /* Badge Styling */
+    .job-card .badge {
+        font-size: 0.75rem;
+        padding: 0.25rem 0.5rem;
+        border-radius: 4px;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .job-card .col-md-2 {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        
+        .job-card .col-md-3 {
+            text-align: center !important;
+            margin-top: 15px;
+        }
+        
+        .job-card .d-flex.flex-column {
+            flex-direction: row !important;
+            justify-content: center;
+            gap: 10px;
+        }
+    }
+    </style>

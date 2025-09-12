@@ -7,9 +7,16 @@
             if ($('#spinner').length > 0) {
                 $('#spinner').removeClass('show');
             }
-        }, 1);
+        }, 1000); // Increased timeout to 1 second
     };
     spinner();
+    
+    // Additional spinner hide on window load
+    $(window).on('load', function() {
+        if ($('#spinner').length > 0) {
+            $('#spinner').removeClass('show');
+        }
+    });
     
     
     // Initiate the wowjs

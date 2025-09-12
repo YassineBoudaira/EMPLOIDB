@@ -42,7 +42,7 @@ class Database {
             return $stmt;
         } catch (PDOException $e) {
             error_log("Database query error: " . $e->getMessage());
-            throw new Exception("Database error occurred");
+            throw new Exception("Database error: " . $e->getMessage());
         }
     }
     
@@ -85,9 +85,25 @@ class Database {
         $stmt = $this->query($sql, $params);
         return $stmt->rowCount();
     }
+    
+    /**
+     * Begin a transaction
+     */
+    public function beginTransaction() {
+        return $this->pdo->beginTransaction();
+    }
+    
+    /**
+     * Commit a transaction
+     */
+    public function commit() {
+        return $this->pdo->commit();
+    }
+    
+    /**
+     * Rollback a transaction
+     */
+    public function rollback() {
+        return $this->pdo->rollback();
+    }
 }
-?>
-
-
-
-
