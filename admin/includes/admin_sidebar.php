@@ -144,6 +144,10 @@ $current_page = basename($_SERVER['PHP_SELF']);
                 <i class="fas fa-robot"></i>
                 <span>Automation Settings</span>
             </a>
+            <a href="feature_settings.php" class="enterprise-nav-link <?= $current_page == 'feature_settings.php' ? 'active' : '' ?>">
+                <i class="fas fa-sliders-h"></i>
+                <span>Feature Settings</span>
+            </a>
         </div>
 
         <!-- System Section -->
