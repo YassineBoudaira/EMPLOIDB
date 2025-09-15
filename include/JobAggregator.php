@@ -34,6 +34,24 @@ class JobAggregator {
             foreach ($settings as $setting) {
                 $this->config[$setting['setting_key']] = $setting['setting_value'];
             }
+
+            // Load global feature settings (backwards compatible)
+            $keys = ['job_sources','fetch_frequency_minutes','feature_ai_rewriting','feature_logo_generation'];
+            $placeholders = implode(',', array_fill(0, count($keys), '?'));
+            $rows = $this->db->fetchAll(
+                "SELECT setting_key, value as setting_value FROM system_settings WHERE setting_key IN ($placeholders)",
+                $keys
+            );
+            foreach ($rows as $row) {
+                $this->config[$row['setting_key']] = $row['setting_value'];
+            }
+
+            if (isset($this->config['job_sources']) && is_string($this->config['job_sources'])) {
+                $decoded = json_decode($this->config['job_sources'], true);
+                if (json_last_error() === JSON_ERROR_NONE && is_array($decoded)) {
+                    $this->config['job_sources_list'] = array_map('strtolower', $decoded);
+                }
+            }
         } catch (Exception $e) {
             $this->log("Error loading config: " . $e->getMessage(), 'error');
         }
@@ -92,8 +110,18 @@ class JobAggregator {
         $totalImported = 0;
         $totalDuplicates = 0;
         
+        // Respect feature settings for enabled sources
+        $enabledList = isset($this->config['job_sources_list']) && is_array($this->config['job_sources_list']) ? $this->config['job_sources_list'] : null;
+
         // Process traditional scraping sources
         foreach ($this->sources as $source) {
+            if ($enabledList !== null) {
+                $sourceName = strtolower($source['name'] ?? '');
+                if (!in_array($sourceName, $enabledList, true)) {
+                    $this->log("Skipping disabled source from settings: " . ($source['name'] ?? 'unknown'), 'info');
+                    continue;
+                }
+            }
             try {
                 $this->log("Processing source: " . $source['name'], 'info');
                 $result = $this->scrapeSource($source);
