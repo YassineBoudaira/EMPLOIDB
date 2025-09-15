@@ -132,6 +132,10 @@ $current_page = basename($_SERVER['PHP_SELF']);
                 <i class="fas fa-chart-line"></i>
                 <span>Aggregation Analytics</span>
             </a>
+            <a href="job_aggregation_monitor.php" class="enterprise-nav-link <?= $current_page == 'job_aggregation_monitor.php' ? 'active' : '' ?>">
+                <i class="fas fa-heartbeat"></i>
+                <span>Aggregation Monitor</span>
+            </a>
             <a href="api_management.php" class="enterprise-nav-link <?= $current_page == 'api_management.php' ? 'active' : '' ?>">
                 <i class="fas fa-plug"></i>
                 <span>API Management</span>
