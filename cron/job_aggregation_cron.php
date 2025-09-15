@@ -24,6 +24,30 @@ $logMessage = "[" . date('Y-m-d H:i:s') . "] Starting job aggregation cron job\n
 file_put_contents(LOG_PATH . 'cron.log', $logMessage, FILE_APPEND | LOCK_EX);
 
 try {
+    // Respect fetch frequency from settings if available
+    try {
+        $freqRow = $db->fetch("SELECT value FROM system_settings WHERE setting_key = 'fetch_frequency_minutes'");
+        $frequencyMinutes = (int)($freqRow['value'] ?? 20);
+        $lastRow = $db->fetch("SELECT setting_value FROM system_settings WHERE setting_key = 'last_aggregation_run'");
+        $lastRun = $lastRow['setting_value'] ?? null;
+        $shouldRun = true;
+        if ($lastRun) {
+            $diffMinutes = (time() - strtotime($lastRun)) / 60;
+            if ($diffMinutes < max(1, $frequencyMinutes)) {
+                $shouldRun = false;
+            }
+        }
+        if (!$shouldRun) {
+            $logMessage = "[" . date('Y-m-d H:i:s') . "] Skipping aggregation (frequency window not reached)\n";
+            file_put_contents(LOG_PATH . 'cron.log', $logMessage, FILE_APPEND | LOCK_EX);
+            exit(0);
+        }
+    } catch (Exception $e) {
+        // If settings missing, continue with default behavior
+        $logMessage = "[" . date('Y-m-d H:i:s') . "] Frequency check error: " . $e->getMessage() . "\n";
+        file_put_contents(LOG_PATH . 'cron.log', $logMessage, FILE_APPEND | LOCK_EX);
+    }
+
     // Run aggregation
     $result = $jobAggregator->runAggregation();
     
@@ -34,6 +58,17 @@ try {
     $logMessage .= "Sources processed: {$result['sources_processed']}\n";
     file_put_contents(LOG_PATH . 'cron.log', $logMessage, FILE_APPEND | LOCK_EX);
     
+    // Persist last run timestamp
+    try {
+        $affected = $db->query("UPDATE system_settings SET setting_value = NOW() WHERE setting_key = 'last_aggregation_run'");
+        if ($affected === 0) {
+            $db->query("INSERT INTO system_settings (setting_key, setting_value) VALUES ('last_aggregation_run', NOW())");
+        }
+    } catch (Exception $e) {
+        $logMessage = "[" . date('Y-m-d H:i:s') . "] Failed to persist last run: " . $e->getMessage() . "\n";
+        file_put_contents(LOG_PATH . 'cron.log', $logMessage, FILE_APPEND | LOCK_EX);
+    }
+
     // Clean up old jobs (older than 30 days)
     $cleanupResult = cleanupOldJobs($db);
     
