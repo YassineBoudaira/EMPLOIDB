@@ -157,6 +157,10 @@ $current_page = basename($_SERVER['PHP_SELF']);
                 <i class="fas fa-file-chart-line"></i>
                 <span>Reports</span>
             </a>
+            <a href="gdpr_compliance.php" class="enterprise-nav-link <?= $current_page == 'gdpr_compliance.php' ? 'active' : '' ?>">
+                <i class="fas fa-user-shield"></i>
+                <span>GDPR Compliance</span>
+            </a>
             <a href="settings.php" class="enterprise-nav-link <?= $current_page == 'settings.php' ? 'active' : '' ?>">
                 <i class="fas fa-cog"></i>
                 <span>Settings</span>
